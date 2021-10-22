@@ -59,12 +59,26 @@ $step-icon-state-number-size: 52px;
   display: flex;
   justify-content: center;
   align-items: center;
+  &.active{
+    border-color: #15B0FC;
+    background-color: transparent;
+  }
+  &.fulfilled{
+    border-color: #15B0FC;
+    background-color: #15B0FC;
+  }
 }
 
 .step-icon-label-text {
   font-weight: bolder;
   font-size: 28px;
   color: white;
+  &.active{
+   color: #15B0FC;
+  }
+  &.fulfilled{
+
+  }
 }
 
 .step-label-text {
@@ -82,6 +96,9 @@ $step-icon-state-number-size: 52px;
   left: calc(-50% + #{$step-icon-state-number-size} / 2);
   right: calc(50% + #{$step-icon-state-number-size} / 2);
   top: calc(#{$step-icon-state-number-size} / 2);
+  &.active, &.fulfilled{
+    background-color: #15B0FC;
+  }
 }
 
 

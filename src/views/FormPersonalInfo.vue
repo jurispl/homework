@@ -28,17 +28,22 @@
             <div class="form-field">
               <label for="Phone-work" class="form-label">Phone</label>
               <div class="form-field-group">
-                <button type="button" class="btn btn-outline dropdown-toggle _show">Work</button>
-                <ul class="dropdown-menu _show">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                  <li><a class="dropdown-item" href="#">Separated link</a></li>
-                  <li><a class="dropdown-item" href="#">Separated link</a></li>
-                </ul>
+                <app-dropdown>
+                  <template #default="{status}">
+                    <app-dropdown-menu :status="status">
+                      <app-dropdown-item>Action</app-dropdown-item>
+                      <app-dropdown-item>Action</app-dropdown-item>
+                      <app-dropdown-item>Action</app-dropdown-item>
+                      <app-dropdown-item>Action</app-dropdown-item>
+                      <app-dropdown-item>Action</app-dropdown-item>
+
+                    </app-dropdown-menu>
+                  </template>
+                </app-dropdown>
                 <input id="Phone-work" type="text" class="form-control">
               </div>
             </div>
+
 
             <div class="button-group">
               <button type="submit" class="btn link">+ Add phone</button>
@@ -61,10 +66,13 @@
 <script>
 import AppStepper from "@/components/AppStepper";
 import AppStepperHeader from "@/components/AppStepperHeader";
+import AppDropdown from "@/components/AppDropdown";
+import AppDropdownMenu from "@/components/AppDropdownMenu";
+import AppDropdownItem from "@/components/AppDropdownItem";
 
 export default {
   name: "FormPersonalInfo",
-  components: {AppStepperHeader, AppStepper},
+  components: {AppDropdownItem, AppDropdownMenu, AppDropdown, AppStepperHeader, AppStepper},
   inject: ['steps'],
 }
 </script>

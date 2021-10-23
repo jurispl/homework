@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
 // Reboot
 *,
 *::before,
@@ -131,11 +131,12 @@ $step-icon-state-number-size: 52px;
 // FORM
 .form-field {
   margin: 0 0 20px 0;
+
+  label {
+    display: inline-block;
+  }
 }
 
-label {
-  display: inline-block;
-}
 
 .form-label {
   margin-bottom: 10px;
@@ -147,9 +148,10 @@ label {
   display: block;
   width: 100%;
   padding: 8px 10px;
-  font-size: 17px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
   font-weight: 400;
-  line-height: 1.5;
+  line-height: 24px;
   color: #394556;
   background-color: #fff;
   background-clip: padding-box;
@@ -168,7 +170,7 @@ label {
 
 .form-field-group > .form-control {
   position: relative;
-  flex: 1 1 auto;
+  flex: 1;
   width: 1%;
   min-width: 0;
   margin-left: -1px;
@@ -182,7 +184,15 @@ label {
   margin-right: -1px;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+  font-size: 16px;
+  font-weight: 400;
 }
+
+.add-phone-content {
+  margin: 0 0 30px 0;
+}
+
+// Custom radio button
 
 .field-check {
   margin: 0 0 30px 0;
@@ -257,8 +267,9 @@ label {
 
 .btn {
   display: inline-block;
-  font-weight: 400;
-  line-height: 1.5;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  line-height: 24px;
   color: #394556;
   text-align: center;
   text-decoration: none;
@@ -266,10 +277,33 @@ label {
   cursor: pointer;
   user-select: none;
   background-color: transparent;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
   padding: 8px 20px;
-  font-size: 16px;
+  font-size: 18px;
   border-radius: 8px;
+
+  &.s-lg {
+    font-weight: bold;
+    font-size: 28px;
+    padding: 18px 20px;
+  }
+
+  &.primary {
+    background-color: #15B0FC;
+    color: white;
+  }
+
+  &.link {
+    padding: 8px 0;
+    background-color: transparent;
+    color: #15B0FC;
+  }
+
+  &.outline {
+    border-color: #15B0FC;
+    background-color: white;
+    color: #15B0FC;;
+  }
 }
 
 .btn-outline {
@@ -336,17 +370,6 @@ label {
   }
 }
 
-.btn-primary {
-  background-color: #15B0FC;
-  color: white;
-  font-weight: bold;
-  font-size: 28px;
-  padding: 10px;
-}
-
-.outline {
-
-}
 
 .description {
   font-size: 18px;

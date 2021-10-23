@@ -96,14 +96,15 @@
             </label>
           </div>
           <div class="field-check">
-            <input  class="field-check-input" type="radio" name="membership" id="Membership-premium">
+            <input class="field-check-input" type="radio" name="membership" id="Membership-premium">
             <label class="field-check-label" for="Membership-premium">
               Premium
             </label>
           </div>
 
           <div class="description">
-            <strong>Regular</strong> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+            <strong>Regular</strong> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+            Ipsum has been the
             industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
             scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
             electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of
@@ -126,12 +127,15 @@
             </div>
           </div>
 
-          <button type="submit" class="btn btn-clear">+ Add phone</button>
+          <div class="add-phone-content">
+            <button type="submit" class="btn link">+ Add phone</button>
+            <button type="submit" class="btn link">Edit</button>
+          </div>
 
 
           <div class="form-footer -to-column">
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn outline s-lg">Submit</button>
+            <button type="submit" class="btn primary s-lg">Submit</button>
           </div>
         </form>
 

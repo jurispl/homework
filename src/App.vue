@@ -89,6 +89,19 @@
             <input id="E-mail" type="text" class="form-control">
           </div>
 
+          <div class="field-check">
+            <input class="field-check-input" type="radio" name="membership" id="Membership-regular" checked>
+            <label class="field-check-label" for="Membership-regular">
+              Regular
+            </label>
+          </div>
+          <div class="field-check">
+            <input  class="field-check-input" type="radio" name="membership" id="Membership-premium">
+            <label class="field-check-label" for="Membership-premium">
+              Premium
+            </label>
+          </div>
+
           <div class="description">
             <strong>Regular</strong> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
             industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and

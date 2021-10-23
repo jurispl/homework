@@ -71,9 +71,9 @@
       <!-- :: end stepper-header -->
 
       <div class="stepper-content">
-        <h2 class="stepper-title">Personal info</h2>
+        <div>
+          <h2 class="stepper-title">Personal info</h2>
 
-        <form>
           <div class="form-field">
             <label for="First-name" class="form-label">First name</label>
             <input id="First-name" type="text" class="form-control">
@@ -137,7 +137,8 @@
 
             </ul>
           </div>
-          <div class="add-phone-content">
+
+          <div class="button-group">
             <button type="submit" class="btn link">Edit</button>
           </div>
 
@@ -156,16 +157,19 @@
             </div>
           </div>
 
-          <div class="add-phone-content">
+          <div class="button-group">
             <button type="submit" class="btn link">+ Add phone</button>
           </div>
 
+        </div>
 
-          <div class="form-footer -to-column">
-            <button type="submit" class="btn outline s-lg">Submit</button>
-            <button type="submit" class="btn primary s-lg">Submit</button>
+        <div class="stepper-content-footer">
+          <div class="to-column">
+            <button type="button" class="btn outline s-lg">Submit</button>
+            <button type="button" class="btn primary s-lg">Submit</button>
           </div>
-        </form>
+        </div>
+
 
       </div>
       <!-- :: end stepper-content -->

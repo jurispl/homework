@@ -112,6 +112,35 @@
             Aldus PageMaker including versions of Lorem Ipsum.
           </div>
 
+          <div>
+            <ul class="list-group">
+              <li class="list-group-item">
+                <div class="item-label">First name:</div>
+                John
+              </li>
+              <li class="list-group-item">
+                <div class="item-label">Last name:</div>
+                Smith
+              </li>
+              <li class="list-group-item">
+                <div class="item-label">E-mail:</div>
+                john.smith@email.com
+              </li>
+              <li class="list-group-item">
+                <div class="item-label">Membership:</div>
+                Regular
+              </li>
+              <li class="list-group-item">
+                <div class="item-label">Home Phone:</div>
+                99568453
+              </li>
+
+            </ul>
+          </div>
+          <div class="add-phone-content">
+            <button type="submit" class="btn link">Edit</button>
+          </div>
+
           <div class="form-field">
             <label for="Phone-work" class="form-label">Phone</label>
             <div class="form-field-group">
@@ -129,7 +158,6 @@
 
           <div class="add-phone-content">
             <button type="submit" class="btn link">+ Add phone</button>
-            <button type="submit" class="btn link">Edit</button>
           </div>
 
 

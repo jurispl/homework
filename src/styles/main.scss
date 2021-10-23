@@ -6,6 +6,11 @@
   box-sizing: border-box;
 }
 
+ol, ul, {
+  margin: 0;
+  padding: 0;
+}
+
 h2 {
   margin: 0;
   padding: 0;
@@ -377,3 +382,25 @@ $step-icon-state-number-size: 52px;
   color: #394556;
   margin: 0 0 27px 0;
 }
+
+.list-group {
+  list-style: none;
+}
+
+.list-group-item {
+  display: flex;
+  align-items: baseline;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  margin-bottom: 20px;
+
+  .item-label {
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 24px;
+    margin: 0 40px 0 0;
+    min-width: 130px;
+  }
+}
+

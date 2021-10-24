@@ -1,8 +1,17 @@
 <template>
+  <app-alert
+      v-if="alert"
+      title="Test"
+      text="Test"
+      type="success"
+      closable
+  ></app-alert>
+
   <app-stepper>
     <template #header>
       <app-stepper-header :steps="steps" active-step="2"></app-stepper-header>
     </template>
+
     <template #default>
 
       <div class="between">
@@ -67,13 +76,19 @@
 import AppStepperHeader from "@/components/AppStepperHeader";
 import AppStepper from "@/components/AppStepper";
 import {mapGetters} from 'vuex'
+import AppAlert from "@/components/AppAlert";
 
 export default {
   name: "FormOverview",
-  components: {AppStepperHeader, AppStepper},
+  components: {AppAlert, AppStepperHeader, AppStepper},
   inject: ['steps', 'phones'],
   computed: {
     ...mapGetters('user', ['user']),
+  },
+  data(){
+    return{
+      alert: true,
+    }
   },
   methods: {
     async sendForm() {

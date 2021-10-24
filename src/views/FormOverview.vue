@@ -38,7 +38,8 @@
           <div class="button-group">
             <button type="submit" class="btn link">Edit</button>
           </div>
-          <pre>{{this.phones}}</pre>
+          <pre>{{user}}</pre>
+
         </div>
 
         <div class="stepper-content-footer">
@@ -57,11 +58,14 @@
 <script>
 import AppStepperHeader from "@/components/AppStepperHeader";
 import AppStepper from "@/components/AppStepper";
-
+import{mapGetters} from 'vuex'
 export default {
   name: "FormOverview",
   components: {AppStepperHeader, AppStepper},
-  inject: ['steps', 'phones'],
+  inject: ['steps',],
+  computed:{
+    ...mapGetters('user', ['user'])
+  }
 }
 </script>
 

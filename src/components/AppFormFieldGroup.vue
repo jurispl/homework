@@ -5,7 +5,7 @@
 
     <div class="form-field-group">
       <slot name="left"></slot>
-      <input :id="id" type="text" class="form-control">
+      <slot name="input"></slot>
     </div>
   </div>
 </template>

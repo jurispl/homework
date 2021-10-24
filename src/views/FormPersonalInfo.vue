@@ -11,46 +11,19 @@
 
             <div class="form-field">
               <label for="First-name" class="form-label">First name</label>
-              <input id="First-name" type="text" class="form-control">
+              <input v-model="firstName" id="First-name" type="text" class="form-control">
             </div>
 
             <div class="form-field">
               <label for="Last-name" class="form-label">Last name</label>
-              <input id="Last-name" type="text" class="form-control">
+              <input v-model="lastName" id="Last-name" type="text" class="form-control">
             </div>
 
             <div class="form-field">
               <label for="E-mail" class="form-label">E-mail</label>
-              <input id="E-mail" type="text" class="form-control">
+              <input v-model="email" id="E-mail" type="text" class="form-control">
             </div>
 
-
-            <!--            <div class="form-field">
-                          <label for="Phone-work" class="form-label">Phone</label>
-                          <div class="form-field-group">
-                            <app-dropdown>
-                              <template #toggle>
-                                <button type="button" class="btn btn-outline dropdown-toggle _show">Bob Tuk</button>
-                              </template>
-                              <template #default="{isOpen}">
-
-                                <app-dropdown-menu :is-open="isOpen" :items="phones">
-
-                                  <template #default="{iter, idx}">
-                                    <app-dropdown-item
-                                        @action="selectPhone(iter)"
-                                        :disabled="iter.isSelected"
-                                    >{{ iter.label }}
-                                    </app-dropdown-item>
-                                  </template>
-
-                                </app-dropdown-menu>
-
-                              </template>
-                            </app-dropdown>
-                            <input id="Phone-work" type="text" class="form-control">
-                          </div>
-                        </div>-->
 
             <template
                 v-for="phone in phoneList"
@@ -85,12 +58,18 @@
                     </template>
                   </app-dropdown>
                 </template>
+                <template #input>
+                  <input :id="phone.type" v-model="phone.value" type="text" class="form-control">
+                </template>
               </app-form-field-group>
             </template>
 
 
             <div class="button-group" v-if="canAddPhone">
-              <button @click="addPhone" type="button" class="btn link">+ Add phone {{ countSelectedPhone }}</button>
+              <button @click="addPhoneField" type="button" class="btn link">+ Add phone {{
+                  countSelectedPhone
+                }}
+              </button>
             </div>
 
           </div>
@@ -114,12 +93,38 @@ import AppDropdown from "@/components/AppDropdown";
 import AppDropdownMenu from "@/components/AppDropdownMenu";
 import AppDropdownItem from "@/components/AppDropdownItem";
 import AppFormFieldGroup from "@/components/AppFormFieldGroup";
+import {mapMutations, mapGetters} from 'vuex'
 
 export default {
   name: "FormPersonalInfo",
   components: {AppFormFieldGroup, AppDropdownItem, AppDropdownMenu, AppDropdown, AppStepperHeader, AppStepper},
-  inject: ['steps', 'user', 'phones'],
+  inject: ['steps', 'phones'],
   computed: {
+    ...mapGetters('user', ['user']),
+    firstName: {
+      get() {
+        return this.user.firstName;
+      },
+      set(value) {
+        this.setFirstName({value: value});
+      }
+    },
+    lastName: {
+      get() {
+        return this.user.lastName;
+      },
+      set(value) {
+        this.setLastName({value: value});
+      }
+    },
+    email: {
+      get() {
+        return this.user.email;
+      },
+      set(value) {
+        this.setEmail({value: value});
+      }
+    },
     countSelectedPhone() {
       return this.phones.reduce((counter, item) => {
         if (item.isSelected) {
@@ -142,6 +147,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations('user', ['setFirstName', 'setLastName', 'setEmail', 'addPhone', 'deletePhones']),
     loadPhoneList() {
       this.phones.forEach(item => {
         item.isSelected ? this.phoneList.push(item) : ''
@@ -152,18 +158,27 @@ export default {
       const phone = this.phones.find(item => item.type === iter.type);
       this.phoneList.splice(oldIndex, 1);
       old.isSelected = false;
+      old.value = '';
       phone.isSelected = true;
       this.phoneList.push(phone);
     },
-    addPhone() {
+    addPhoneField() {
       const phone = this.phones.find(i => i.isSelected !== true);
       this.phoneList.push(phone);
       console.log(this.phoneList);
       phone.isSelected = true;
     },
-    sendForm(event) {
-      // @click="$router.push('/form/membership')"
-      console.log('Send FORM', event);
+    sendForm() {
+      if (this.phoneList.length) {
+        this.deletePhones();
+        this.phoneList.forEach(item => {
+          if (item.value) {
+            this.addPhone({[item.type]: item.value})
+          }
+        });
+      }
+
+      this.$router.push('/form/membership');
     },
   },
 }

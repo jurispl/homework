@@ -58,16 +58,26 @@
 <script>
 import AppStepperHeader from "@/components/AppStepperHeader";
 import AppStepper from "@/components/AppStepper";
+import {mapGetters, mapMutations} from 'vuex'
 
 export default {
   name: "FormMembership",
   components: {AppStepperHeader, AppStepper},
   inject: ['steps'],
-  data() {
-    return {
-      membership: 'regular'
+  computed: {
+    ...mapGetters('user', ['user']),
+    membership: {
+      get() {
+        return this.user.membership;
+      },
+      set(value) {
+        this.setMembership({value: value});
+      }
     }
   },
+  methods: {
+    ...mapMutations('user', ['setMembership'])
+  }
 }
 </script>
 

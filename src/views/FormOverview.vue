@@ -53,7 +53,7 @@
         <div class="stepper-content-footer">
           <div class="to-column">
             <button @click="$router.push('/form/membership')" type="button" class="btn outline s-lg">Back</button>
-            <button type="button" class="btn primary s-lg">Submit</button>
+            <button @click="sendForm" type="button" class="btn primary s-lg">Submit</button>
           </div>
         </div>
       </div>
@@ -75,6 +75,32 @@ export default {
   computed: {
     ...mapGetters('user', ['user']),
   },
+  methods: {
+    async sendForm() {
+      try {
+        const url = 'https://vue-jp-http-default-rtdb.europe-west1.firebasedatabase.app/users.json';
+
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json; charset="utf-8"',
+          },
+          body: JSON.stringify(this.user)
+        });
+
+
+        if(!response.ok && response.status !== 200){
+          throw new Error(`ERROR ${response.status} :: ${response.statusText}`);
+        }
+        const fbData =  await response.json();
+        console.log('fbData', fbData);
+      } catch (e) {
+        console.log('ERROR', e);
+      }
+
+
+    },
+  }
 }
 </script>
 

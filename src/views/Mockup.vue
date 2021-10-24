@@ -145,7 +145,7 @@
           <div class="form-field">
             <label for="Phone-work" class="form-label">Phone</label>
             <div class="form-field-group">
-              <button type="button" class="btn btn-outline dropdown-toggle _show">Work</button>
+              <button disabled type="button" class="btn btn-outline dropdown-toggle _show">Work</button>
               <ul class="dropdown-menu _show">
                 <li><a class="dropdown-item" href="#">Action</a></li>
                 <li><a class="dropdown-item" href="#">Another action</a></li>

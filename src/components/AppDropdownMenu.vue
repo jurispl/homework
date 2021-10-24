@@ -1,7 +1,10 @@
 <template>
-  <ul class="dropdown-menu" :class="{show:status}">
-    <li>
-      <slot></slot>
+  <ul class="dropdown-menu" :class="{show:isOpen}">
+    <li
+        v-for="(item, index) in items"
+        :key="item"
+    >
+      <slot name="default" :iter="item" :idx="index"></slot>
     </li>
   </ul>
 </template>
@@ -10,9 +13,11 @@
 export default {
   name: "AppDropdownMenu",
   props: {
-    status:{
+    isOpen: {
       type: Boolean,
-      default: false,
+    },
+    items: {
+      type: Array,
     }
   },
 }

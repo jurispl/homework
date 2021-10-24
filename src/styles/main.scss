@@ -129,7 +129,8 @@ $step-icon-state-number-size: 52px;
   background: #FFFFFF 0 0 no-repeat padding-box;
   box-shadow: 0 3px 16px #0000001A;
 }
-.between{
+
+.between {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -179,7 +180,7 @@ $step-icon-state-number-size: 52px;
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  align-items: stretch;
+  align-items: center;
   width: 100%;
 }
 
@@ -194,7 +195,7 @@ $step-icon-state-number-size: 52px;
 }
 
 .form-field-group > .btn,
-.form-field-group > .toggle-content > .btn{
+.form-field-group > .toggle-content > .btn {
   position: relative;
   z-index: 2;
   margin-right: -1px;
@@ -202,8 +203,11 @@ $step-icon-state-number-size: 52px;
   border-bottom-right-radius: 0;
   font-size: 16px;
   font-weight: 400;
+  min-width: 127px;
+  text-align: left;
 }
-.toggle-content{
+
+.toggle-content {
 
 }
 
@@ -384,9 +388,15 @@ $step-icon-state-number-size: 52px;
   line-height: 24px;
   cursor: pointer;
   min-width: 150px;
-  &:hover{
+
+  &:hover {
     background-color: #EEEEEE;
     // color: #15B0FC;
+  }
+
+  &:disabled {
+    pointer-events: none;
+    color: #D5DEE4;
   }
 }
 

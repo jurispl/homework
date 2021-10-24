@@ -13,24 +13,33 @@
             <ul class="list-group">
               <li class="list-group-item">
                 <div class="item-label">First name:</div>
-                John
+                {{ user.firstName }}
               </li>
               <li class="list-group-item">
                 <div class="item-label">Last name:</div>
-                Smith
+                {{ user.lastName }}
               </li>
               <li class="list-group-item">
                 <div class="item-label">E-mail:</div>
-                john.smith@email.com
+                {{ user.email }}
               </li>
               <li class="list-group-item">
                 <div class="item-label">Membership:</div>
-                Regular
+                {{ user.membership }}
               </li>
-              <li class="list-group-item">
-                <div class="item-label">Home Phone:</div>
-                99568453
-              </li>
+              <template
+                  v-for="phone in phones"
+                  :key="phone"
+              >
+                <li
+                    v-if="phone.value"
+                    class="list-group-item"
+                >
+                  <div class="item-label">{{ phone.fullLabel }}</div>
+                  {{ phone.value }}
+                </li>
+              </template>
+
 
             </ul>
           </div>
@@ -38,7 +47,6 @@
           <div class="button-group">
             <button type="submit" class="btn link">Edit</button>
           </div>
-          <pre>{{user}}</pre>
 
         </div>
 
@@ -58,14 +66,15 @@
 <script>
 import AppStepperHeader from "@/components/AppStepperHeader";
 import AppStepper from "@/components/AppStepper";
-import{mapGetters} from 'vuex'
+import {mapGetters} from 'vuex'
+
 export default {
   name: "FormOverview",
   components: {AppStepperHeader, AppStepper},
-  inject: ['steps',],
-  computed:{
-    ...mapGetters('user', ['user'])
-  }
+  inject: ['steps', 'phones'],
+  computed: {
+    ...mapGetters('user', ['user']),
+  },
 }
 </script>
 

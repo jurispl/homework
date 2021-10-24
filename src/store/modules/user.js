@@ -8,7 +8,8 @@ export default {
                 email: null,
                 membership: 'regular',
                 phones: [],
-            }
+            },
+
 
         }
     },
@@ -36,11 +37,8 @@ export default {
         user(state) {
             return state.user;
         },
-        // parseData(state) {
-        //     for (const item in Object.entries(state.user)){
-        //         console.log(typeof item)
-        //     }
-        //     return true;
-        // }
+        phonesList(state) {
+            return state.user.phones;
+        }
     }
 }

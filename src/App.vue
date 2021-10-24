@@ -32,34 +32,48 @@ export default {
           id: 3,
         },
       ],
+      form:{
+
+      },
+      user: {
+        firstName: '',
+        lastName: '',
+        email: '',
+        membership: '',
+      },
       phones: [
         {
           type: 'work',
           label: 'Work',
+          fullLabel: 'Work Phone',
           value: null,
           isSelected: true,
         },
         {
           type: 'home',
           label: 'Home',
+          fullLabel: 'Home Phone',
           value: null,
           isSelected: false,
         },
         {
           type: 'mobile',
           label: 'Mobile',
+          fullLabel: 'Mobile Phone',
           value: null,
           isSelected: false,
         },
         {
           type: 'main',
           label: 'Main',
+          fullLabel: 'Main Phone',
           value: null,
           isSelected: false,
         },
         {
           type: 'other',
           label: 'Other',
+          fullLabel: 'Other Phone',
           value: null,
           isSelected: false,
         },

@@ -1,7 +1,7 @@
 <template>
   <app-stepper>
     <template #header>
-      <app-stepper-header :steps="steps"></app-stepper-header>
+      <app-stepper-header :steps="steps" active-step="2"></app-stepper-header>
     </template>
     <template #default>
 
@@ -38,6 +38,7 @@
           <div class="button-group">
             <button type="submit" class="btn link">Edit</button>
           </div>
+          <pre>{{this.phones}}</pre>
         </div>
 
         <div class="stepper-content-footer">
@@ -60,7 +61,7 @@ import AppStepper from "@/components/AppStepper";
 export default {
   name: "FormOverview",
   components: {AppStepperHeader, AppStepper},
-  inject: ['steps'],
+  inject: ['steps', 'phones'],
 }
 </script>
 

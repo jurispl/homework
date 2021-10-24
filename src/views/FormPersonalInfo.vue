@@ -1,10 +1,10 @@
 <template>
   <app-stepper>
     <template #header>
-      <app-stepper-header :steps="steps"></app-stepper-header>
+      <app-stepper-header :steps="steps" active-step="0"></app-stepper-header>
     </template>
     <template #default>
-      <form>
+      <form @submit.prevent="sendForm">
         <div class="between">
           <div class="stepper-content-top">
             <h2 class="stepper-title">Personal info</h2>
@@ -97,7 +97,7 @@
 
           <div class="stepper-content-footer">
             <div class="to-column">
-              <button @click="$router.push('/form/membership')" type="button" class="btn primary s-lg">Continue</button>
+              <button type="submit" class="btn primary s-lg">Continue</button>
             </div>
           </div>
         </div>
@@ -118,7 +118,7 @@ import AppFormFieldGroup from "@/components/AppFormFieldGroup";
 export default {
   name: "FormPersonalInfo",
   components: {AppFormFieldGroup, AppDropdownItem, AppDropdownMenu, AppDropdown, AppStepperHeader, AppStepper},
-  inject: ['steps', 'phones'],
+  inject: ['steps', 'user', 'phones'],
   computed: {
     countSelectedPhone() {
       return this.phones.reduce((counter, item) => {
@@ -160,6 +160,10 @@ export default {
       this.phoneList.push(phone);
       console.log(this.phoneList);
       phone.isSelected = true;
+    },
+    sendForm(event) {
+      // @click="$router.push('/form/membership')"
+      console.log('Send FORM', event);
     },
   },
 }

@@ -1,7 +1,7 @@
 <template>
   <app-stepper>
     <template #header>
-      <app-stepper-header :steps="steps"></app-stepper-header>
+      <app-stepper-header :steps="steps" active-step="1"></app-stepper-header>
     </template>
     <template #default>
       <form>

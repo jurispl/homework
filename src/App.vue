@@ -9,25 +9,35 @@ export default {
   provide() {
     return {
       steps: this.steps,
+      user: this.user,
       phones: this.phones,
     }
   },
-  data(){
-    return{
+  data() {
+    return {
       steps: [
         {
           title: 'Personal info',
-          status: 'fulfilled',
+          status: 'active',
+          id: 1,
         },
         {
           title: 'Membership',
-          status: 'active',
+          status: 'disabled',
+          id: 2,
         },
         {
           title: 'Overview',
-          status: 'disabled'
+          status: 'disabled',
+          id: 3,
         },
       ],
+      user: {
+        firstName: '',
+        lastName: '',
+        email: '',
+        membership: '',
+      },
       phones: [
         {
           type: 'work',

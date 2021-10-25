@@ -1,17 +1,20 @@
 <template>
-  <app-alert
-      v-if="alert"
-      title="Test"
-      text="Test"
-      type="success"
-      closable
-  ></app-alert>
+
 
   <app-stepper>
     <template #header>
       <app-stepper-header :steps="steps" active-step="2"></app-stepper-header>
     </template>
 
+    <template #alert>
+      <app-alert
+          v-if="alert"
+          :title="alertContent.title"
+          :text="alertContent.text"
+          :type="alertContent.type"
+          closable
+      ></app-alert>
+    </template>
     <template #default>
 
       <div class="between">
@@ -85,15 +88,18 @@ export default {
   computed: {
     ...mapGetters('user', ['user']),
   },
-  data(){
-    return{
-      alert: true,
+  data() {
+    return {
+      alert: false,
+      alertContent: null,
     }
   },
   methods: {
     async sendForm() {
       try {
-        const url = 'https://vue-jp-http-default-rtdb.europe-west1.firebasedatabase.app/users.json';
+        // TEST Random error request!
+        const artifact = Math.random() >= 0.5 ? 'ERR': '';
+        const url = `https://${artifact}vue-jp-http-default-rtdb.europe-west1.firebasedatabase.app/users.json`;
 
         const response = await fetch(url, {
           method: 'POST',
@@ -104,13 +110,32 @@ export default {
         });
 
 
-        if(!response.ok && response.status !== 200){
-          throw new Error(`ERROR ${response.status} :: ${response.statusText}`);
+        if (!response.ok && response.status !== 200) {
+          const msg = `Response status: ${response.status} :: ${response.statusText}`;
+          this.alert = true;
+          this.alertContent = {
+            title: 'ERROR form submission',
+            text: msg,
+            type: 'danger'
+          }
+
+          throw new Error(msg);
         }
-        const fbData =  await response.json();
-        console.log('fbData', fbData);
+        const fbData = await response.json();
+        this.alert = true;
+        this.alertContent = {
+          title: 'Successful form submission',
+          text: `ID in the Firebase database: ${fbData.name}`,
+          type: 'primary'
+        }
+
       } catch (e) {
-        console.log('ERROR', e);
+        this.alert = true;
+        this.alertContent = {
+          title: 'ERROR form submission',
+          text: e.message,
+          type: 'danger'
+        }
       }
 
 

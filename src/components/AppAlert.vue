@@ -2,6 +2,7 @@
   <div
       class="alert"
       role="alert"
+      :class="type"
   >
     <div>
       <h4 class="alert-heading">
@@ -20,7 +21,7 @@ export default {
     text: String,
     type: {
       type: String,
-      default: 'alert-info',
+      default: 'primary',
       required: false,
       validator(val) {
         return ['danger', 'primary', 'success', 'info'].includes(val);

@@ -3,6 +3,10 @@
     <div v-if="$slots.header" class="stepper-header">
       <slot name="header"></slot>
     </div>
+    <div v-if="$slots.alert" class="stepper-alert-container">
+      <slot name="alert"></slot>
+    </div>
+
     <div class="stepper-content">
       <slot name="default"></slot>
     </div>

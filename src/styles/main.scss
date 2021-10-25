@@ -117,6 +117,9 @@ $step-icon-state-number-size: 52px;
   }
 }
 
+.stepper-alert-container {
+  min-width: 490px;
+}
 
 .stepper-content {
   display: flex;
@@ -438,3 +441,23 @@ $step-icon-state-number-size: 52px;
   }
 }
 
+// Alert
+.alert {
+  position: relative;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  border: 2px solid transparent;
+  border-radius: 8px;
+
+  &.primary {
+    color: #0D47A1;
+    background-color: #BBDEFB;
+    border-color: #64B5F6;
+  }
+
+  &.danger {
+    color: #B71C1C;
+    background-color: #FFCDD2;
+    border-color: #E57373
+  }
+}

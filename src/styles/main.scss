@@ -308,6 +308,10 @@ $step-icon-state-number-size: 52px;
   font-size: 18px;
   border-radius: 8px;
 
+  &:focus {
+    opacity: 0.67;
+  }
+
   &.s-lg {
     font-weight: bold;
     font-size: 28px;

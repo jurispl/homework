@@ -13,6 +13,7 @@
           :text="alertContent.text"
           :type="alertContent.type"
           closable
+          @close="alert = false"
       ></app-alert>
     </template>
     <template #default>
@@ -80,7 +81,6 @@ import AppStepperHeader from "@/components/AppStepperHeader";
 import AppStepper from "@/components/AppStepper";
 import {mapGetters} from 'vuex'
 import AppAlert from "@/components/AppAlert";
-
 export default {
   name: "FormOverview",
   components: {AppAlert, AppStepperHeader, AppStepper},

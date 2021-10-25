@@ -10,12 +10,21 @@
       </h4>
       <p>{{ text }}</p>
     </div>
+    <button
+        type="button"
+        class="alert-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+        @click="$emit('close')"
+        v-if="closable"
+    ></button>
   </div>
 </template>
 
 <script>
 export default {
   name: "AppAlert",
+  emits:['close'],
   props:{
     title: String,
     text: String,

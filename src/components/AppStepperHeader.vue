@@ -1,5 +1,5 @@
 <template>
-  <div class="stepper-header">
+
 
     <div
         class="step-header"
@@ -18,7 +18,7 @@
       ></app-stepper-step>
     </div>
 
-  </div>
+
 </template>
 
 <script>

@@ -5,12 +5,6 @@
   <div class="row">
     <router-link to="/form/personal">Form personal</router-link>
   </div>
-  <div class="row">
-    <step-one></step-one>
-  </div>
-  <div class="row">
-
-  </div>
 </template>
 
 <script>

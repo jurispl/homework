@@ -1,6 +1,5 @@
 <template>
   <div class="to-column">
-    <h2>step one</h2>
     <div class="form-field">
       <label for="First-name" class="form-label">First name</label>
       <input v-model="firstName" id="First-name" type="text" class="form-control">
@@ -62,7 +61,6 @@
           countSelectedPhone
         }}
       </button>
-      <router-link to="/home">Go Home</router-link>
     </div>
   </div>
 
@@ -136,11 +134,10 @@ export default {
     selectPhone(iter, old) {
       const oldIndex = this.phoneList.findIndex(item => item.type === old.type);
       const phone = this.phones.find(item => item.type === iter.type);
-      this.phoneList.splice(oldIndex, 1);
       old.isSelected = false;
       old.value = '';
       phone.isSelected = true;
-      this.phoneList.push(phone);
+      this.phoneList.splice(oldIndex, 1, phone);
     },
     addPhoneField() {
       const phone = this.phones.find(i => i.isSelected !== true);

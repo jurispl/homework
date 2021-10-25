@@ -48,6 +48,7 @@ export default {
           fullLabel: 'Work Phone',
           value: null,
           isSelected: true,
+          sortNumber: 1,
         },
         {
           type: 'home',
@@ -55,6 +56,7 @@ export default {
           fullLabel: 'Home Phone',
           value: null,
           isSelected: false,
+          sortNumber: 2,
         },
         {
           type: 'mobile',
@@ -62,6 +64,7 @@ export default {
           fullLabel: 'Mobile Phone',
           value: null,
           isSelected: false,
+          sortNumber: 3,
         },
         {
           type: 'main',
@@ -69,6 +72,7 @@ export default {
           fullLabel: 'Main Phone',
           value: null,
           isSelected: false,
+          sortNumber: 4,
         },
         {
           type: 'other',
@@ -76,6 +80,7 @@ export default {
           fullLabel: 'Other Phone',
           value: null,
           isSelected: false,
+          sortNumber: 5,
         },
       ],
     }

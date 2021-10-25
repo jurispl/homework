@@ -70,6 +70,7 @@
                   countSelectedPhone
                 }}
               </button>
+              <router-link to="/home">Go Home</router-link>
             </div>
 
           </div>

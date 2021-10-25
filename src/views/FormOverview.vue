@@ -1,4 +1,11 @@
 <template>
+  <teleport to="body">
+    <app-modal
+        title="Edit registration data"
+        v-if="showModal"
+        @close="closeModal"
+    ></app-modal>
+  </teleport>
 
 
   <app-stepper>
@@ -58,7 +65,7 @@
           </div>
 
           <div class="button-group">
-            <button type="submit" class="btn link">Edit</button>
+            <button @click="showModal = true" type="button" class="btn link">Edit</button>
           </div>
 
         </div>
@@ -81,9 +88,11 @@ import AppStepperHeader from "@/components/AppStepperHeader";
 import AppStepper from "@/components/AppStepper";
 import {mapGetters} from 'vuex'
 import AppAlert from "@/components/AppAlert";
+import AppModal from "@/components/AppModal";
+
 export default {
   name: "FormOverview",
-  components: {AppAlert, AppStepperHeader, AppStepper},
+  components: {AppModal, AppAlert, AppStepperHeader, AppStepper},
   inject: ['steps', 'phones'],
   computed: {
     ...mapGetters('user', ['user']),
@@ -92,13 +101,17 @@ export default {
     return {
       alert: false,
       alertContent: null,
+      showModal: false,
     }
   },
   methods: {
+    closeModal() {
+      this.showModal = false;
+    },
     async sendForm() {
       try {
         // TEST Random error request!
-        const artifact = Math.random() >= 0.5 ? 'ERR': '';
+        const artifact = Math.random() >= 0.5 ? 'ERR' : '';
         const url = `https://${artifact}vue-jp-http-default-rtdb.europe-west1.firebasedatabase.app/users.json`;
 
         const response = await fetch(url, {

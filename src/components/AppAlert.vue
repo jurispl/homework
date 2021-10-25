@@ -24,8 +24,8 @@
 <script>
 export default {
   name: "AppAlert",
-  emits:['close'],
-  props:{
+  emits: ['close'],
+  props: {
     title: String,
     text: String,
     type: {

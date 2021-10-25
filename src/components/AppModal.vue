@@ -9,7 +9,7 @@
         </div>
         <div class="modal-content">
           <p>---- Content ----</p>
-          <button type="button" class="btn primary s-lg">Continue</button>
+          <slot name="default"></slot>
         </div>
       </div>
     </div>

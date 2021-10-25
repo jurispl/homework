@@ -4,7 +4,20 @@
         title="Edit registration data"
         v-if="showModal"
         @close="closeModal"
-    ></app-modal>
+    >
+      <template #default>
+        <div class="form-field">
+          <label for="First-name" class="form-label">First name</label>
+          <input id="First-name" type="text" class="form-control">
+        </div>
+        <div class="to-column">
+          <button type="button" class="btn outline s-lg">Cancel</button>
+          <button type="button" class="btn primary s-lg">Save</button>
+        </div>
+      </template>
+
+
+    </app-modal>
   </teleport>
 
 

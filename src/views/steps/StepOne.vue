@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="to-column">
     <h2>step one</h2>
     <div class="form-field">
       <label for="First-name" class="form-label">First name</label>
@@ -15,14 +15,70 @@
       <label for="E-mail" class="form-label">E-mail</label>
       <input v-model="email" id="E-mail" type="text" class="form-control">
     </div>
+
+
+    <template
+        v-for="phone in phoneList"
+        :key="phone.type"
+    >
+      <app-form-field-group
+          v-if="phone.isSelected"
+          :id="phone.type"
+      >
+        <template #label>
+          <label :for="phone.type" class="form-label">Phone</label>
+        </template>
+        <template #left>
+          <app-dropdown>
+            <template #toggle>
+              <button type="button" class="btn btn-outline dropdown-toggle _show">{{ phone.label }}</button>
+            </template>
+            <template #default="{isOpen}">
+
+              <app-dropdown-menu :is-open="isOpen" :items="phones">
+
+                <template #default="{iter, idx}">
+                  <app-dropdown-item
+                      @action="selectPhone(iter, phone)"
+                      :disabled="iter.isSelected"
+                  >{{ iter.label }}
+                  </app-dropdown-item>
+                </template>
+
+              </app-dropdown-menu>
+
+            </template>
+          </app-dropdown>
+        </template>
+        <template #input>
+          <input :id="phone.type" v-model="phone.value" type="text" class="form-control">
+        </template>
+      </app-form-field-group>
+    </template>
+
+
+    <div class="button-group" v-if="canAddPhone">
+      <button @click="addPhoneField" type="button" class="btn link">+ Add phone {{
+          countSelectedPhone
+        }}
+      </button>
+      <router-link to="/home">Go Home</router-link>
+    </div>
   </div>
+
 </template>
 
 <script>
+import AppDropdown from "@/components/AppDropdown";
+import AppDropdownMenu from "@/components/AppDropdownMenu";
+import AppDropdownItem from "@/components/AppDropdownItem";
+import AppFormFieldGroup from "@/components/AppFormFieldGroup";
 import {mapGetters, mapMutations} from 'vuex';
 
 export default {
   name: "StepOne",
+  inject: ['phones'],
+  components: {AppFormFieldGroup, AppDropdownItem, AppDropdownMenu, AppDropdown},
   computed: {
     ...mapGetters('user', ['user']),
     firstName: {
@@ -48,10 +104,50 @@ export default {
       set(value) {
         this.setEmail({value: value});
       }
+    },
+    countSelectedPhone() {
+      return this.phones.reduce((counter, item) => {
+        if (item.isSelected) {
+          return counter + 1;
+        } else {
+          return counter
+        }
+      }, 0);
+    },
+    canAddPhone() {
+      return this.phones.length !== this.countSelectedPhone;
     }
   },
+  data() {
+    return {
+      phoneList: [],
+    }
+  },
+  mounted() {
+    this.loadPhoneList();
+  },
   methods: {
-    ...mapMutations('user', ['setFirstName', 'setLastName', 'setEmail'])
+    ...mapMutations('user', ['setFirstName', 'setLastName', 'setEmail']),
+    loadPhoneList() {
+      this.phones.forEach(item => {
+        item.isSelected ? this.phoneList.push(item) : ''
+      });
+    },
+    selectPhone(iter, old) {
+      const oldIndex = this.phoneList.findIndex(item => item.type === old.type);
+      const phone = this.phones.find(item => item.type === iter.type);
+      this.phoneList.splice(oldIndex, 1);
+      old.isSelected = false;
+      old.value = '';
+      phone.isSelected = true;
+      this.phoneList.push(phone);
+    },
+    addPhoneField() {
+      const phone = this.phones.find(i => i.isSelected !== true);
+      this.phoneList.push(phone);
+      console.log(this.phoneList);
+      phone.isSelected = true;
+    },
   },
 }
 </script>

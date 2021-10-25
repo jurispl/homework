@@ -6,12 +6,12 @@
         @close="closeModal"
     >
       <template #default>
-        <div class="form-field">
-          <label for="First-name" class="form-label">First name</label>
-          <input id="First-name" type="text" class="form-control">
-        </div>
+
+        <step-one></step-one>
+        <step-two></step-two>
+
         <div class="to-column">
-          <button type="button" class="btn outline s-lg">Cancel</button>
+          <button @click="closeModal" type="button" class="btn outline s-lg">Cancel</button>
           <button type="button" class="btn primary s-lg">Save</button>
         </div>
       </template>
@@ -78,7 +78,7 @@
           </div>
 
           <div class="button-group">
-            <button @click="showModal = true" type="button" class="btn link">Edit</button>
+            <button @click="openModal" type="button" class="btn link">Edit</button>
           </div>
 
         </div>
@@ -102,10 +102,12 @@ import AppStepper from "@/components/AppStepper";
 import {mapGetters} from 'vuex'
 import AppAlert from "@/components/AppAlert";
 import AppModal from "@/components/AppModal";
+import StepOne from "@/views/steps/StepOne";
+import StepTwo from "@/views/steps/StepTwo";
 
 export default {
   name: "FormOverview",
-  components: {AppModal, AppAlert, AppStepperHeader, AppStepper},
+  components: {StepTwo, StepOne, AppModal, AppAlert, AppStepperHeader, AppStepper},
   inject: ['steps', 'phones'],
   computed: {
     ...mapGetters('user', ['user']),
@@ -119,7 +121,12 @@ export default {
   },
   methods: {
     closeModal() {
+      document.body.classList.remove('modal-open');
       this.showModal = false;
+    },
+    openModal() {
+      document.body.classList.add('modal-open');
+      this.showModal = true;
     },
     async sendForm() {
       try {

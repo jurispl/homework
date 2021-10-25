@@ -8,7 +8,6 @@
           <button @click="$emit('close')" type="button" class="modal-close" aria-label="Close"></button>
         </div>
         <div class="modal-content">
-          <p>---- Content ----</p>
           <slot name="default"></slot>
         </div>
       </div>

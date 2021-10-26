@@ -9,7 +9,7 @@ export default {
                 membership: 'regular',
                 phones: [],
             },
-
+            showData: true,
 
         }
     },
@@ -31,14 +31,18 @@ export default {
         },
         deletePhones(state) {
             state.user.phones = [];
+        },
+        setField(state, data) {
+            console.log('this.formData', data.type, data.value);
+            state.user[data.type] = data.value;
         }
     },
     getters: {
         user(state) {
             return state.user;
         },
-        phonesList(state) {
-            return state.user.phones;
+        showData(state) {
+            return state.showData;
         }
     }
 }

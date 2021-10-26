@@ -11,6 +11,7 @@ export default {
       steps: this.steps,
       user: this.user,
       phones: this.phones,
+      formData: {},
     }
   },
   data() {

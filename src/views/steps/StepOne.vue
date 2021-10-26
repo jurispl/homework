@@ -2,17 +2,17 @@
   <div class="to-column">
     <div class="form-field">
       <label for="First-name" class="form-label">First name</label>
-      <input v-model="firstName" id="First-name" type="text" class="form-control">
+      <input :value="firstName" @input="updateField('firstName', $event.target.value)" id="First-name" type="text" class="form-control">
     </div>
 
     <div class="form-field">
       <label for="Last-name" class="form-label">Last name</label>
-      <input v-model="lastName" id="Last-name" type="text" class="form-control">
+      <input :value="lastName" @input="updateField('lastName', $event.target.value)"  id="Last-name" type="text" class="form-control">
     </div>
 
     <div class="form-field">
       <label for="E-mail" class="form-label">E-mail</label>
-      <input v-model="email" id="E-mail" type="text" class="form-control">
+      <input :value="email" @input="updateField('email', $event.target.value)"  id="E-mail" type="text" class="form-control">
     </div>
 
 
@@ -55,6 +55,7 @@
       </app-form-field-group>
     </template>
 
+    <app-test></app-test>
 
     <div class="button-group" v-if="canAddPhone">
       <button @click="addPhoneField" type="button" class="btn link">+ Add phone {{
@@ -72,36 +73,22 @@ import AppDropdownMenu from "@/components/AppDropdownMenu";
 import AppDropdownItem from "@/components/AppDropdownItem";
 import AppFormFieldGroup from "@/components/AppFormFieldGroup";
 import {mapGetters, mapMutations} from 'vuex';
+import AppTest from "@/components/AppTest";
 
 export default {
   name: "StepOne",
-  inject: ['phones'],
-  components: {AppFormFieldGroup, AppDropdownItem, AppDropdownMenu, AppDropdown},
+  inject: ['phones', 'formData'],
+  components: {AppTest, AppFormFieldGroup, AppDropdownItem, AppDropdownMenu, AppDropdown},
   computed: {
     ...mapGetters('user', ['user']),
-    firstName: {
-      get() {
-        return this.user.firstName;
-      },
-      set(value) {
-        this.setFirstName({value: value});
-      },
+    firstName() {
+      return this.user.firstName;
     },
-    lastName: {
-      get() {
-        return this.user.lastName
-      },
-      set(value) {
-        this.setLastName({value: value});
-      }
+    lastName() {
+      return this.user.lastName;
     },
-    email: {
-      get() {
-        return this.user.email;
-      },
-      set(value) {
-        this.setEmail({value: value});
-      }
+    email() {
+      return this.user.email;
     },
     countSelectedPhone() {
       return this.phones.reduce((counter, item) => {
@@ -126,6 +113,9 @@ export default {
   },
   methods: {
     ...mapMutations('user', ['setFirstName', 'setLastName', 'setEmail']),
+    updateField(type, e){
+      this.formData[type] = e;
+    },
     loadPhoneList() {
       this.phones.forEach(item => {
         item.isSelected ? this.phoneList.push(item) : ''

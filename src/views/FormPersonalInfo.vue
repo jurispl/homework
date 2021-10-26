@@ -15,6 +15,7 @@
 
           <div class="stepper-content-footer">
             <div class="to-column">
+              <router-link to="membership">membership</router-link>
               <button type="submit" class="btn primary s-lg">Continue</button>
             </div>
           </div>
@@ -34,10 +35,24 @@ import StepOne from "@/views/steps/StepOne";
 export default {
   name: "FormPersonalInfo",
   components: {StepOne, AppStepperHeader, AppStepper},
-  inject: ['steps', 'phones'],
+  inject: ['steps', 'phones', 'formData'],
   methods: {
-    ...mapMutations('user', ['addPhone', 'deletePhones']),
+    ...mapMutations('user', ['addPhone', 'deletePhones' , 'setField']),
     sendForm() {
+  //     const form = document.getElementById('bob');
+  //     const formData = new FormData(form);
+  //
+  //     for (let [key, value] of formData.entries()) {
+  //   console.log('entries --', key, value);
+  //   this.setUserData({key:key, value: value});
+  // }
+
+      for(let [type, value] of Object.entries(this.formData)){
+        this.setField({type,value});
+      }
+      this.formData = {};
+
+
       this.deletePhones();
       this.phones.forEach(phone => {
         if (phone.value) {
@@ -45,7 +60,7 @@ export default {
         }
       });
 
-      this.$router.push('/form/membership');
+      // this.$router.push('/form/membership');
     },
   },
 }

@@ -11,7 +11,7 @@
 
             <step-one
                 ref="personal"
-                :formStore="formStore"
+                :getGroupFields="fromStore('personal')"
             ></step-one>
 
           </div>
@@ -44,16 +44,28 @@ export default {
   inject: ['steps'],
   computed: {
     ...mapGetters('user', ['getForm']),
-    formStore(){
-      return JSON.parse(JSON.stringify(this.getForm));;
+    group() {
+      const group = {};
+      const form = JSON.parse(JSON.stringify(this.getForm));
+
+      form.forEach(elm => {
+        group[elm.fieldGroup.id] = elm;
+      });
+      return group;
     },
   },
   methods: {
     ...mapMutations('user', ['addPhone', 'deletePhones', 'setForm']),
+    fromStore(id) {
+      if (this.group[id]) {
+        return this.group[id];
+      } else {
+        return {};
+      }
+    },
     sendForm() {
       // this.$refs.personal.temporaryForm
       const fromRef = JSON.parse(JSON.stringify(this.$refs.personal.temporaryForm))
-
       // const form = document.getElementById('bob');
       // const formData = new FormData(form);
       //

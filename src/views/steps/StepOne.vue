@@ -6,7 +6,7 @@
           class="form-label"
       >First name</label>
       <input
-          :value="temporaryForm.firstName.value"
+          :value="field.firstName.value"
           @input="updateField('firstName', $event.target.value)"
           id="First-name"
           type="text"
@@ -20,7 +20,7 @@
           class="form-label"
       >Last name</label>
       <input
-          :value="temporaryForm.lastName.value"
+          :value="field.lastName.value"
           @input="updateField('lastName', $event.target.value)"
           id="Last-name"
           type="text"
@@ -33,7 +33,7 @@
           class="form-label"
       >E-mail</label>
       <input
-          :value="temporaryForm.email.value"
+          :value="field.email.value"
           @input="updateField('email', $event.target.value)"
           id="E-mail"
           type="text"
@@ -42,7 +42,7 @@
 
     <div
         class="form-field"
-        v-for="(item, index) in temporaryForm.phones"
+        v-for="(item, index) in field.phones.fields"
         :key="index"
     >
       <label
@@ -75,46 +75,63 @@ export default {
   inject: ['formData'],
   expose: ['temporaryForm'],
   props: {
-    formStore: {
+    getGroupFields: {
       type: Object
     },
   },
   components: {PhoneList},
+  computed: {
+    field() {
+      const fields = {};
+      this.temporaryForm.fields.forEach(field => {
+        fields[field.id] = field;
+      });
+      return fields;
+    },
+  },
   data() {
     return {
       temporaryForm: {
-        firstName: {
-          id: 'firstName',
-          value: null,
+        fieldGroup: {
+          id: 'personal',
+          title: 'Personal'
         },
-        lastName: {
-          id: 'lastName',
-          value: null,
-        },
-        email: {
-          id: 'email',
-          value: null,
-        },
-        phones: []
+        fields: [
+          {
+            id: 'firstName',
+            value: null,
+          },
+          {
+            id: 'lastName',
+            value: null,
+          },
+          {
+            id: 'email',
+            value: null,
+          },
+          {
+            id: 'phones',
+            fields: [],
+          },
+        ],
       },
     }
   },
   methods: {
     newItem() {
-      this.temporaryForm.phones.push({label: `Nr: ${this.temporaryForm.phones.length} label`, value: 'Bob'})
+      this.field.phones.fields.push({label: `Nr: ${this.field.phones.fields.length} label`, value: 'Bob'})
     },
     updateNews(item, e) {
-      this.temporaryForm.phones[item].value = e;
+      this.field.phones.fields[item].value = e;
     },
 
     updateField(id, value) {
-      this.temporaryForm[id].value = value;
+      this.field[id].value = value;
     },
-
   },
   created() {
-    if (Object.keys(this.formStore).length) {
-      this.temporaryForm = {...this.formStore}
+    if (Object.keys(this.getGroupFields).length) {
+      this.temporaryForm = {...this.getGroupFields}
     }
   },
   unmounted() {

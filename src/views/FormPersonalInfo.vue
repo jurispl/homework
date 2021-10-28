@@ -4,19 +4,25 @@
       <app-stepper-header :steps="steps" active-step="0"></app-stepper-header>
     </template>
     <template #default>
-      <form @submit.prevent="sendForm">
+      <form @submit.prevent="sendForm" id="bob">
         <div class="between">
           <div class="stepper-content-top">
             <h2 class="stepper-title">Personal info</h2>
 
-            <step-one></step-one>
+            <step-one
+                ref="personal"
+                :formStore="formStore"
+            ></step-one>
 
           </div>
 
           <div class="stepper-content-footer">
             <div class="to-column">
               <router-link to="membership">membership</router-link>
-              <button type="submit" class="btn primary s-lg">Continue</button>
+              <br>
+              <router-link to="/">Go HOME</router-link>
+              <br>
+              <button type="button" @click="sendForm" class="btn primary s-lg">Continue</button>
             </div>
           </div>
         </div>
@@ -29,38 +35,43 @@
 <script>
 import AppStepper from "@/components/AppStepper";
 import AppStepperHeader from "@/components/AppStepperHeader";
-import {mapMutations} from 'vuex'
+import {mapMutations, mapGetters} from 'vuex'
 import StepOne from "@/views/steps/StepOne";
 
 export default {
   name: "FormPersonalInfo",
   components: {StepOne, AppStepperHeader, AppStepper},
-  inject: ['steps', 'phones', 'formData'],
+  inject: ['steps'],
+  computed: {
+    ...mapGetters('user', ['getForm']),
+    formStore(){
+      return JSON.parse(JSON.stringify(this.getForm));;
+    },
+  },
   methods: {
-    ...mapMutations('user', ['addPhone', 'deletePhones' , 'setField']),
+    ...mapMutations('user', ['addPhone', 'deletePhones', 'setForm']),
     sendForm() {
-  //     const form = document.getElementById('bob');
-  //     const formData = new FormData(form);
-  //
-  //     for (let [key, value] of formData.entries()) {
-  //   console.log('entries --', key, value);
-  //   this.setUserData({key:key, value: value});
-  // }
+      // this.$refs.personal.temporaryForm
+      const fromRef = JSON.parse(JSON.stringify(this.$refs.personal.temporaryForm))
 
-      for(let [type, value] of Object.entries(this.formData)){
-        this.setField({type,value});
-      }
-      this.formData = {};
+      // const form = document.getElementById('bob');
+      // const formData = new FormData(form);
+      //
+      // for (let [name, value] of formData.entries()) {
+      //   console.log('form Data --', name, value);
+      // }
+
+      this.setForm({value: fromRef});
 
 
-      this.deletePhones();
-      this.phones.forEach(phone => {
-        if (phone.value) {
-          this.addPhone({[phone.type]: phone.value})
-        }
-      });
+      // this.deletePhones();
+      // this.phones.forEach(phone => {
+      //   if (phone.value) {
+      //     this.addPhone({[phone.type]: phone.value})
+      //   }
+      // });
 
-      // this.$router.push('/form/membership');
+      // this.$router.push('/form/membership');getForm
     },
   },
 }

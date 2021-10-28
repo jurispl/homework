@@ -8,68 +8,41 @@ export default {
                 email: null,
                 membership: 'regular',
                 phones: [],
-                sam: true,
             },
-            phonesFields: [
-                {
-                    type: 'work',
-                    label: 'Work',
-                    fullLabel: 'Work Phone',
-                    value: null,
-                    isSelected: true,
-                    sortNumber: 1,
-                },
-                {
-                    type: 'home',
-                    label: 'Home',
-                    fullLabel: 'Home Phone',
-                    value: null,
-                    isSelected: false,
-                    sortNumber: 2,
-                },
-                {
-                    type: 'mobile',
-                    label: 'Mobile',
-                    fullLabel: 'Mobile Phone',
-                    value: null,
-                    isSelected: false,
-                    sortNumber: 3,
-                },
-                {
-                    type: 'main',
-                    label: 'Main',
-                    fullLabel: 'Main Phone',
-                    value: null,
-                    isSelected: false,
-                    sortNumber: 4,
-                },
-                {
-                    type: 'other',
-                    label: 'Other',
-                    fullLabel: 'Other Phone',
-                    value: null,
-                    isSelected: false,
-                    sortNumber: 5,
-                },
-            ],
-            form: [],
+            showData: true,
+
         }
     },
     mutations: {
+        setFirstName(state, data) {
+            state.user.firstName = data.value;
+        },
+        setLastName(state, data) {
+            state.user.lastName = data.value;
+        },
+        setEmail(state, data) {
+            state.user.email = data.value;
+        },
         setMembership(state, data) {
             state.user.membership = data.value;
         },
-        setForm(state, data){
-            state.form = [data.value]
+        addPhone(state, data) {
+            state.user.phones.push(data)
         },
+        deletePhones(state) {
+            state.user.phones = [];
+        },
+        setField(state, data) {
+            console.log('this.formData', data.type, data.value);
+            state.user[data.type] = data.value;
+        }
     },
     getters: {
-        getForm(state) {
-            return state.form;
-        },
-
         user(state) {
             return state.user;
         },
+        showData(state) {
+            return state.showData;
+        }
     }
 }

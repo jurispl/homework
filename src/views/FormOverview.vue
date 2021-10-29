@@ -7,11 +7,18 @@
     >
       <template #default>
 
-       <h1>Content</h1>
+        <step-one
+            ref="personal"
+            :getGroupFields="fromStore('personal')"
+        ></step-one>
+        <step-two
+            ref="membership"
+            :getGroupFields="fromStore('membership')"
+        ></step-two>
 
         <div class="to-column">
           <button @click="closeModal" type="button" class="btn outline s-lg">Cancel</button>
-          <button type="button" class="btn primary s-lg">Save</button>
+          <button  @click="sendForm" type="button" class="btn primary s-lg">Save</button>
         </div>
       </template>
 
@@ -78,6 +85,9 @@
 
           <div class="button-group">
             <button @click="openModal" type="button" class="btn link">Edit</button>
+
+            <br>
+            <router-link to="/home"  class="btn link">Home</router-link>
           </div>
 
         </div>
@@ -98,7 +108,7 @@
 <script>
 import AppStepperHeader from "@/components/AppStepperHeader";
 import AppStepper from "@/components/AppStepper";
-import {mapGetters} from 'vuex'
+import {mapGetters, mapMutations} from 'vuex'
 import AppAlert from "@/components/AppAlert";
 import AppModal from "@/components/AppModal";
 import StepOne from "@/views/steps/StepOne";
@@ -107,9 +117,18 @@ import StepTwo from "@/views/steps/StepTwo";
 export default {
   name: "FormOverview",
   components: {StepTwo, StepOne, AppModal, AppAlert, AppStepperHeader, AppStepper},
-  inject: ['steps', 'phones'],
+  inject: ['steps'],
   computed: {
-   //  ...mapGetters('user', ['user']),
+   ...mapGetters('user', ['getForm']),
+    group() {
+      const group = {};
+      const form = JSON.parse(JSON.stringify(this.getForm));
+
+      form.forEach(elm => {
+        group[elm.fieldGroup.id] = elm;
+      });
+      return group;
+    },
   },
   data() {
     return {
@@ -119,6 +138,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations('user', ['setForm']),
     closeModal() {
       document.body.classList.remove('modal-open');
       this.showModal = false;
@@ -127,7 +147,7 @@ export default {
       document.body.classList.add('modal-open');
       this.showModal = true;
     },
-    async sendForm() {
+   /* async sendForm() {
       try {
         // TEST Random error request!
         const artifact = Math.random() >= 0.5 ? 'ERR' : '';
@@ -171,6 +191,25 @@ export default {
       }
 
 
+    },*/
+
+    fromStore(id) {
+      if (this.group[id]) {
+        return this.group[id];
+      } else {
+        return {};
+      }
+    },
+    sendForm() {
+
+      const fromPersonalRef = JSON.parse(JSON.stringify(this.$refs.personal.temporaryForm))
+      this.setForm({value: fromPersonalRef});
+
+      const fromMembershipRef = JSON.parse(JSON.stringify(this.$refs.membership.temporaryForm))
+      this.setForm({value: fromMembershipRef});
+
+      this.closeModal();
+      // this.$router.push('/form/membership');
     },
   }
 }

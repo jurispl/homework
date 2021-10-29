@@ -8,7 +8,6 @@ export default {
     mutations: {
         setForm(state, data) {
            const idx = state.form.findIndex(i => i.fieldGroup.id === data.value.fieldGroup.id)
-            console.log(idx)
             if(idx !== -1){
                 state.form[idx] = data.value;
             } else {

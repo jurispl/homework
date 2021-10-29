@@ -1,8 +1,7 @@
-import {createStore, createLogger} from 'vuex'
+import {createStore} from 'vuex'
 import userModule from './modules/user'
 
 export default createStore({
-    plugins: [createLogger()],
     modules: {
         user: userModule,
     }

@@ -2,32 +2,23 @@ export default {
     namespaced: true,
     state() {
         return {
-            user: {
-                firstName: null,
-                lastName: null,
-                email: null,
-                membership: 'regular',
-                phones: [],
-                sam: true,
-            },
             form: [],
         }
     },
     mutations: {
-        setMembership(state, data) {
-            state.user.membership = data.value;
-        },
-        setForm(state, data){
-            state.form = [data.value]
+        setForm(state, data) {
+           const idx = state.form.findIndex(i => i.fieldGroup.id === data.value.fieldGroup.id)
+            console.log(idx)
+            if(idx !== -1){
+                state.form[idx] = data.value;
+            } else {
+                state.form.push(data.value)
+            }
         },
     },
     getters: {
         getForm(state) {
             return state.form;
-        },
-
-        user(state) {
-            return state.user;
         },
     }
 }

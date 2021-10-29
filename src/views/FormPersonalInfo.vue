@@ -4,7 +4,7 @@
       <app-stepper-header :steps="steps" active-step="0"></app-stepper-header>
     </template>
     <template #default>
-      <form @submit.prevent="sendForm" id="bob">
+      <form @submit.prevent>
         <div class="between">
           <div class="stepper-content-top">
             <h2 class="stepper-title">Personal info</h2>
@@ -76,7 +76,7 @@ export default {
       this.setForm({value: fromRef});
 
 
-      // this.$router.push('/form/membership');getForm
+      // this.$router.push('/form/membership');
     },
   },
 }

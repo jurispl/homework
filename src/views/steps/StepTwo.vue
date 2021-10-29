@@ -1,14 +1,14 @@
 <template>
   <div class="to-column">
     <div class="field-check">
-      <input v-model="membership" value="regular" class="field-check-input" type="radio" name="membership"
+      <input v-model="field.membership.value" value="regular" class="field-check-input" type="radio" name="membership"
              id="Membership-regular">
       <label class="field-check-label" for="Membership-regular">
         Regular
       </label>
     </div>
     <div class="field-check">
-      <input v-model="membership" value="premium" class="field-check-input" type="radio" name="membership"
+      <input v-model="field.membership.value"  value="premium" class="field-check-input" type="radio" name="membership"
              id="Membership-premium">
       <label class="field-check-label" for="Membership-premium">
         Premium
@@ -16,7 +16,7 @@
     </div>
 
     <div class="description">
-      <div v-if=" membership === 'regular'">
+      <div v-if=" field.membership.value === 'regular'">
         <strong>Regular</strong> Lorem Ipsum is simply dummy text of the printing and typesetting industry.
         Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
         took a galley of type and scrambled it to make a type specimen book. It has survived not only five
@@ -35,24 +35,50 @@
 </template>
 
 <script>
-import {mapGetters, mapMutations} from 'vuex';
 
 export default {
   name: "StepTwo",
+  expose: ['temporaryForm'],
+  props: {
+    getGroupFields: {
+      type: Object
+    },
+  },
   computed: {
-    ...mapGetters('user', ['user']),
-    membership: {
-      get() {
-        return this.user.membership;
+    field() {
+      const fields = {};
+      this.temporaryForm.fields.forEach(field => {
+        fields[field.id] = field;
+      });
+      return fields;
+    },
+  },
+  data() {
+    return {
+      temporaryForm: {
+        fieldGroup: {
+          id: 'membership',
+          title: 'Membership'
+        },
+        fields: [
+          {
+            id: 'membership',
+            value: 'premium',
+          },
+        ],
       },
-      set(value) {
-        this.setMembership({value: value});
-      }
     }
   },
   methods: {
-    ...mapMutations('user', ['setMembership'])
-  }
+    updateField(id, value) {
+      this.field[id].value = value;
+    },
+  },
+  created() {
+    if (Object.keys(this.getGroupFields).length) {
+      this.temporaryForm = {...this.getGroupFields}
+    }
+  },
 }
 </script>
 

@@ -56,12 +56,14 @@
              class="form-control">
     </div>
 
+  <div class="button-group">
     <button
         @click="newItem()"
         type="button"
-        class="btn primary s-lg"
-    >Add new field
+        class="btn link"
+    >Add description
     </button>
+  </div>
 
     <phone-list
         :phones="field.phones.fields"
@@ -75,7 +77,6 @@ import PhoneList from "@/views/steps/PhoneList";
 
 export default {
   name: "StepOne",
-  inject: ['formData'],
   expose: ['temporaryForm'],
   props: {
     getGroupFields: {
@@ -166,6 +167,7 @@ export default {
     }
   },
   methods: {
+    // Dynamic adding a description field
     newItem() {
       this.field.info.fields.push({label: `Nr: ${this.field.info.fields.length} label`, value: 'Bob'})
     },

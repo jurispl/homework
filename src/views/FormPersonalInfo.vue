@@ -33,36 +33,21 @@
 </template>
 
 <script>
-import AppStepper from "@/components/AppStepper";
 import AppStepperHeader from "@/components/AppStepperHeader";
-import {mapMutations, mapGetters} from 'vuex'
+import AppStepper from "@/components/AppStepper";
 import StepOne from "@/views/steps/StepOne";
-
+import formMixin from'@/mixin/formMixin';
+import {mapMutations, mapGetters} from 'vuex';
 export default {
   name: "FormPersonalInfo",
+  mixins:[formMixin],
   components: {StepOne, AppStepperHeader, AppStepper},
   inject: ['steps'],
   computed: {
     ...mapGetters('user', ['getForm']),
-    group() {
-      const group = {};
-      const form = JSON.parse(JSON.stringify(this.getForm));
-
-      form.forEach(elm => {
-        group[elm.fieldGroup.id] = elm;
-      });
-      return group;
-    },
   },
   methods: {
     ...mapMutations('user', ['setForm']),
-    fromStore(id) {
-      if (this.group[id]) {
-        return this.group[id];
-      } else {
-        return {};
-      }
-    },
     sendForm() {
       // this.$refs.personal.temporaryForm
       const fromRef = JSON.parse(JSON.stringify(this.$refs.personal.temporaryForm))

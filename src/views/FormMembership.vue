@@ -33,33 +33,19 @@
 import AppStepperHeader from "@/components/AppStepperHeader";
 import AppStepper from "@/components/AppStepper";
 import StepTwo from "@/views/steps/StepTwo";
+import formMixin from'@/mixin/formMixin';
 import {mapGetters, mapMutations} from 'vuex'
 
 export default {
   name: "FormMembership",
+  mixins: [formMixin],
   components: {StepTwo, AppStepperHeader, AppStepper},
   inject: ['steps'],
   computed: {
     ...mapGetters('user', ['getForm']),
-    group() {
-      const group = {};
-      const form = JSON.parse(JSON.stringify(this.getForm));
-
-      form.forEach(elm => {
-        group[elm.fieldGroup.id] = elm;
-      });
-      return group;
-    },
   },
   methods: {
     ...mapMutations('user', ['setForm']),
-    fromStore(id) {
-      if (this.group[id]) {
-        return this.group[id];
-      } else {
-        return {};
-      }
-    },
     sendForm() {
       const fromRef = JSON.parse(JSON.stringify(this.$refs.membership.temporaryForm))
       this.setForm({value: fromRef});

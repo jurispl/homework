@@ -42,13 +42,13 @@
 
     <div
         class="form-field"
-        v-for="(item, index) in field.info.fields"
+        v-for="(item, index) in field.skills.fields"
         :key="index"
     >
       <label
           :for="item.label + index"
           class="form-label"
-      >{{ item.label }}</label>
+      >Skill</label>
       <input :value="item.value" @input="updateNews(index, $event.target.value)"
              :id="index"
              :name="index"
@@ -56,14 +56,14 @@
              class="form-control">
     </div>
 
-  <div class="button-group">
-    <button
-        @click="newItem()"
-        type="button"
-        class="btn link"
-    >Add description
-    </button>
-  </div>
+    <div class="button-group">
+      <button
+          @click="newItem()"
+          type="button"
+          class="btn link"
+      >+ Add skill
+      </button>
+    </div>
 
     <phone-list
         :phones="field.phones.fields"
@@ -114,7 +114,7 @@ export default {
             value: null,
           },
           {
-            id: 'info',
+            id: 'skills',
             fields: [],
           },
           {
@@ -167,12 +167,12 @@ export default {
     }
   },
   methods: {
-    // Dynamic adding a description field
+    // Dynamic adding field
     newItem() {
-      this.field.info.fields.push({label: `Nr: ${this.field.info.fields.length} label`, value: 'Bob'})
+      this.field['skills'].fields.push({label: `Skill`, value: ''})
     },
     updateNews(item, e) {
-      this.field.info.fields[item].value = e;
+      this.field['skills'].fields[item].value = e;
     },
 
     updateField(id, value) {

@@ -3,7 +3,7 @@
     <h1>Home page</h1>
   </div>
   <div class="row">
-    <router-link to="/form/personal">Form personal</router-link>
+    <router-link to="/form/personal" class="btn link">Registration form</router-link>
   </div>
 </template>
 

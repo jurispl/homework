@@ -18,7 +18,7 @@
 
         <div class="to-column">
           <button @click="closeModal" type="button" class="btn outline s-lg">Cancel</button>
-          <button  @click="sendForm" type="button" class="btn primary s-lg">Save</button>
+          <button @click="sendForm" type="button" class="btn primary s-lg">Save</button>
         </div>
       </template>
 
@@ -52,32 +52,44 @@
             <ul class="list-group">
               <li class="list-group-item">
                 <div class="item-label">First name:</div>
-<!--                {{ user.firstName }}-->ddd
+                {{ field.firstName.value }}
               </li>
               <li class="list-group-item">
                 <div class="item-label">Last name:</div>
-<!--                {{ user.lastName }}-->dddd
+                {{ field.lastName.value }}
               </li>
               <li class="list-group-item">
                 <div class="item-label">E-mail:</div>
-<!--                {{ user.email }}-->ddd
+                {{ field.email.value }}
               </li>
               <li class="list-group-item">
                 <div class="item-label">Membership:</div>
-<!--                {{ user.membership }}-->
+                {{ field.membership.value }}
               </li>
-<!--              <template-->
-<!--                  v-for="phone in phones"-->
-<!--                  :key="phone"-->
-<!--              >-->
-<!--                <li-->
-<!--                    v-if="phone.value"-->
-<!--                    class="list-group-item"-->
-<!--                >-->
-<!--                  <div class="item-label">{{ phone.fullLabel }}</div>-->
-<!--                  {{ phone.value }}-->
-<!--                </li>-->
-<!--              </template>-->
+              <template
+                  v-for="skill in field.skills.fields"
+                  :key="skill"
+              >
+                <li
+                    v-if="skill.value"
+                    class="list-group-item"
+                >
+                  <div class="item-label">{{ skill.label }}</div>
+                  {{ skill.value }}
+                </li>
+              </template>
+              <template
+                  v-for="phone in field.phones.fields"
+                  :key="phone"
+              >
+                <li
+                    v-if="phone.value"
+                    class="list-group-item"
+                >
+                  <div class="item-label">{{ phone.fullLabel }}</div>
+                  {{ phone.value }}
+                </li>
+              </template>
 
 
             </ul>
@@ -87,7 +99,7 @@
             <button @click="openModal" type="button" class="btn link">Edit</button>
 
             <br>
-            <router-link to="/home"  class="btn link">Home</router-link>
+            <router-link to="/home" class="btn link">Home</router-link>
           </div>
 
         </div>
@@ -119,7 +131,7 @@ export default {
   components: {StepTwo, StepOne, AppModal, AppAlert, AppStepperHeader, AppStepper},
   inject: ['steps'],
   computed: {
-   ...mapGetters('user', ['getForm']),
+    ...mapGetters('user', ['getForm']),
     group() {
       const group = {};
       const form = JSON.parse(JSON.stringify(this.getForm));
@@ -129,6 +141,19 @@ export default {
       });
       return group;
     },
+    field() {
+      // field.firstName.value
+      const form = JSON.parse(JSON.stringify(this.getForm));
+      const field = {};
+      form.forEach(ietm => {
+        ietm.fields.forEach(elm => {
+          field[elm.id] = elm
+          console.log(elm)
+        })
+      })
+
+      return field;
+    }
   },
   data() {
     return {
@@ -147,51 +172,51 @@ export default {
       document.body.classList.add('modal-open');
       this.showModal = true;
     },
-   /* async sendForm() {
-      try {
-        // TEST Random error request!
-        const artifact = Math.random() >= 0.5 ? 'ERR' : '';
-        const url = `https://${artifact}vue-jp-http-default-rtdb.europe-west1.firebasedatabase.app/users.json`;
+    /* async sendForm() {
+       try {
+         // TEST Random error request!
+         const artifact = Math.random() >= 0.5 ? 'ERR' : '';
+         const url = `https://${artifact}vue-jp-http-default-rtdb.europe-west1.firebasedatabase.app/users.json`;
 
-        const response = await fetch(url, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json; charset="utf-8"',
-          },
-          body: JSON.stringify(this.user)
-        });
-
-
-        if (!response.ok && response.status !== 200) {
-          const msg = `Response status: ${response.status} :: ${response.statusText}`;
-          this.alert = true;
-          this.alertContent = {
-            title: 'ERROR form submission',
-            text: msg,
-            type: 'danger'
-          }
-
-          throw new Error(msg);
-        }
-        const fbData = await response.json();
-        this.alert = true;
-        this.alertContent = {
-          title: 'Successful form submission',
-          text: `ID in the Firebase database: ${fbData.name}`,
-          type: 'primary'
-        }
-
-      } catch (e) {
-        this.alert = true;
-        this.alertContent = {
-          title: 'ERROR form submission',
-          text: e.message,
-          type: 'danger'
-        }
-      }
+         const response = await fetch(url, {
+           method: 'POST',
+           headers: {
+             'Content-Type': 'application/json; charset="utf-8"',
+           },
+           body: JSON.stringify(this.user)
+         });
 
 
-    },*/
+         if (!response.ok && response.status !== 200) {
+           const msg = `Response status: ${response.status} :: ${response.statusText}`;
+           this.alert = true;
+           this.alertContent = {
+             title: 'ERROR form submission',
+             text: msg,
+             type: 'danger'
+           }
+
+           throw new Error(msg);
+         }
+         const fbData = await response.json();
+         this.alert = true;
+         this.alertContent = {
+           title: 'Successful form submission',
+           text: `ID in the Firebase database: ${fbData.name}`,
+           type: 'primary'
+         }
+
+       } catch (e) {
+         this.alert = true;
+         this.alertContent = {
+           title: 'ERROR form submission',
+           text: e.message,
+           type: 'danger'
+         }
+       }
+
+
+     },*/
 
     fromStore(id) {
       if (this.group[id]) {

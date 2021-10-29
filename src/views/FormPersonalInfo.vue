@@ -55,7 +55,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations('user', ['addPhone', 'deletePhones', 'setForm']),
+    ...mapMutations('user', ['setForm']),
     fromStore(id) {
       if (this.group[id]) {
         return this.group[id];
@@ -75,13 +75,6 @@ export default {
 
       this.setForm({value: fromRef});
 
-
-      // this.deletePhones();
-      // this.phones.forEach(phone => {
-      //   if (phone.value) {
-      //     this.addPhone({[phone.type]: phone.value})
-      //   }
-      // });
 
       // this.$router.push('/form/membership');getForm
     },

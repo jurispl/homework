@@ -42,7 +42,7 @@
 
     <div
         class="form-field"
-        v-for="(item, index) in field.phones.fields"
+        v-for="(item, index) in field.info.fields"
         :key="index"
     >
       <label
@@ -63,6 +63,9 @@
     >Add new field
     </button>
 
+    <phone-list
+        :phones="field.phones.fields"
+    ></phone-list>
   </div>
 
 </template>
@@ -110,8 +113,53 @@ export default {
             value: null,
           },
           {
-            id: 'phones',
+            id: 'info',
             fields: [],
+          },
+          {
+            id: 'phones',
+            fields: [
+              {
+                type: 'work',
+                label: 'Work',
+                fullLabel: 'Work Phone',
+                value: null,
+                isSelected: true,
+                sortNumber: 1,
+              },
+              {
+                type: 'home',
+                label: 'Home',
+                fullLabel: 'Home Phone',
+                value: null,
+                isSelected: true,
+                sortNumber: 2,
+              },
+              {
+                type: 'mobile',
+                label: 'Mobile',
+                fullLabel: 'Mobile Phone',
+                value: null,
+                isSelected: false,
+                sortNumber: 3,
+              },
+              {
+                type: 'main',
+                label: 'Main',
+                fullLabel: 'Main Phone',
+                value: null,
+                isSelected: false,
+                sortNumber: 4,
+              },
+              {
+                type: 'other',
+                label: 'Other',
+                fullLabel: 'Other Phone',
+                value: null,
+                isSelected: false,
+                sortNumber: 5,
+              },
+            ],
           },
         ],
       },
@@ -119,10 +167,10 @@ export default {
   },
   methods: {
     newItem() {
-      this.field.phones.fields.push({label: `Nr: ${this.field.phones.fields.length} label`, value: 'Bob'})
+      this.field.info.fields.push({label: `Nr: ${this.field.info.fields.length} label`, value: 'Bob'})
     },
     updateNews(item, e) {
-      this.field.phones.fields[item].value = e;
+      this.field.info.fields[item].value = e;
     },
 
     updateField(id, value) {

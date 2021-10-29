@@ -33,7 +33,7 @@
 import AppStepperHeader from "@/components/AppStepperHeader";
 import AppStepper from "@/components/AppStepper";
 import StepTwo from "@/views/steps/StepTwo";
-import {mapGetters} from 'vuex'
+import {mapGetters, mapMutations} from 'vuex'
 
 export default {
   name: "FormMembership",
@@ -52,6 +52,7 @@ export default {
     },
   },
   methods: {
+    ...mapMutations('user', ['setForm']),
     fromStore(id) {
       if (this.group[id]) {
         return this.group[id];
@@ -61,9 +62,8 @@ export default {
     },
     sendForm() {
       const fromRef = JSON.parse(JSON.stringify(this.$refs.membership.temporaryForm))
-      //console.log('fromRef', this.$refs.membership.temporaryForm)
       this.setForm({value: fromRef});
-      // this.$router.push('/form/overview');
+      this.$router.push('/form/overview');
     },
   },
 }

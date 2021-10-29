@@ -7,8 +7,7 @@
     >
       <template #default>
 
-        <step-one></step-one>
-        <step-two></step-two>
+       <h1>Content</h1>
 
         <div class="to-column">
           <button @click="closeModal" type="button" class="btn outline s-lg">Cancel</button>
@@ -46,32 +45,32 @@
             <ul class="list-group">
               <li class="list-group-item">
                 <div class="item-label">First name:</div>
-                {{ user.firstName }}
+<!--                {{ user.firstName }}-->ddd
               </li>
               <li class="list-group-item">
                 <div class="item-label">Last name:</div>
-                {{ user.lastName }}
+<!--                {{ user.lastName }}-->dddd
               </li>
               <li class="list-group-item">
                 <div class="item-label">E-mail:</div>
-                {{ user.email }}
+<!--                {{ user.email }}-->ddd
               </li>
               <li class="list-group-item">
                 <div class="item-label">Membership:</div>
-                {{ user.membership }}
+<!--                {{ user.membership }}-->
               </li>
-              <template
-                  v-for="phone in phones"
-                  :key="phone"
-              >
-                <li
-                    v-if="phone.value"
-                    class="list-group-item"
-                >
-                  <div class="item-label">{{ phone.fullLabel }}</div>
-                  {{ phone.value }}
-                </li>
-              </template>
+<!--              <template-->
+<!--                  v-for="phone in phones"-->
+<!--                  :key="phone"-->
+<!--              >-->
+<!--                <li-->
+<!--                    v-if="phone.value"-->
+<!--                    class="list-group-item"-->
+<!--                >-->
+<!--                  <div class="item-label">{{ phone.fullLabel }}</div>-->
+<!--                  {{ phone.value }}-->
+<!--                </li>-->
+<!--              </template>-->
 
 
             </ul>
@@ -110,7 +109,7 @@ export default {
   components: {StepTwo, StepOne, AppModal, AppAlert, AppStepperHeader, AppStepper},
   inject: ['steps', 'phones'],
   computed: {
-    ...mapGetters('user', ['user']),
+   //  ...mapGetters('user', ['user']),
   },
   data() {
     return {

@@ -76,7 +76,7 @@ export default {
       this.setForm({value: fromRef});
 
 
-      // this.$router.push('/form/membership');
+      this.$router.push('/form/membership');
     },
   },
 }

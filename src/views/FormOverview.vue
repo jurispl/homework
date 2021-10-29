@@ -97,9 +97,6 @@
 
           <div class="button-group">
             <button @click="openModal" type="button" class="btn link">Edit</button>
-
-            <br>
-            <router-link to="/home" class="btn link">Home</router-link>
           </div>
 
         </div>
@@ -107,7 +104,7 @@
         <div class="stepper-content-footer">
           <div class="to-column">
             <button @click="$router.push('/form/membership')" type="button" class="btn outline s-lg">Back</button>
-            <button @click="sendForm" type="button" class="btn primary s-lg">Submit</button>
+            <button @click="postForm(field)" type="button" class="btn primary s-lg">Submit</button>
           </div>
         </div>
       </div>
@@ -125,30 +122,22 @@ import AppAlert from "@/components/AppAlert";
 import AppModal from "@/components/AppModal";
 import StepOne from "@/views/steps/StepOne";
 import StepTwo from "@/views/steps/StepTwo";
+import formMixin from "@/mixin/formMixin";
 
 export default {
   name: "FormOverview",
+  mixins: [formMixin],
   components: {StepTwo, StepOne, AppModal, AppAlert, AppStepperHeader, AppStepper},
   inject: ['steps'],
   computed: {
     ...mapGetters('user', ['getForm']),
-    group() {
-      const group = {};
-      const form = JSON.parse(JSON.stringify(this.getForm));
 
-      form.forEach(elm => {
-        group[elm.fieldGroup.id] = elm;
-      });
-      return group;
-    },
     field() {
-      // field.firstName.value
       const form = JSON.parse(JSON.stringify(this.getForm));
       const field = {};
-      form.forEach(ietm => {
-        ietm.fields.forEach(elm => {
-          field[elm.id] = elm
-          console.log(elm)
+      form.forEach(group => {
+        group.fields.forEach(elm => {
+          field[elm.id] = elm;
         })
       })
 
@@ -172,59 +161,52 @@ export default {
       document.body.classList.add('modal-open');
       this.showModal = true;
     },
-    /* async sendForm() {
-       try {
-         // TEST Random error request!
-         const artifact = Math.random() >= 0.5 ? 'ERR' : '';
-         const url = `https://${artifact}vue-jp-http-default-rtdb.europe-west1.firebasedatabase.app/users.json`;
+    async postForm(body) {
+      try {
+        // TEST Random error request!
+        const artifact = Math.random() >= 0.5 ? 'ERR' : '';
+        const url = `https://${artifact}vue-jp-http-default-rtdb.europe-west1.firebasedatabase.app/users.json`;
 
-         const response = await fetch(url, {
-           method: 'POST',
-           headers: {
-             'Content-Type': 'application/json; charset="utf-8"',
-           },
-           body: JSON.stringify(this.user)
-         });
-
-
-         if (!response.ok && response.status !== 200) {
-           const msg = `Response status: ${response.status} :: ${response.statusText}`;
-           this.alert = true;
-           this.alertContent = {
-             title: 'ERROR form submission',
-             text: msg,
-             type: 'danger'
-           }
-
-           throw new Error(msg);
-         }
-         const fbData = await response.json();
-         this.alert = true;
-         this.alertContent = {
-           title: 'Successful form submission',
-           text: `ID in the Firebase database: ${fbData.name}`,
-           type: 'primary'
-         }
-
-       } catch (e) {
-         this.alert = true;
-         this.alertContent = {
-           title: 'ERROR form submission',
-           text: e.message,
-           type: 'danger'
-         }
-       }
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json; charset="utf-8"',
+          },
+          body: JSON.stringify(body)
+        });
 
 
-     },*/
+        if (!response.ok && response.status !== 200) {
+          const msg = `Response status: ${response.status} :: ${response.statusText}`;
+          this.alert = true;
+          this.alertContent = {
+            title: 'ERROR form submission',
+            text: msg,
+            type: 'danger'
+          }
 
-    fromStore(id) {
-      if (this.group[id]) {
-        return this.group[id];
-      } else {
-        return {};
+          throw new Error(msg);
+        }
+        const fbData = await response.json();
+        this.alert = true;
+        this.alertContent = {
+          title: 'Successful form submission',
+          text: `ID in the Firebase database: ${fbData.name}`,
+          type: 'primary'
+        }
+
+      } catch (e) {
+        this.alert = true;
+        this.alertContent = {
+          title: 'ERROR form submission',
+          text: e.message,
+          type: 'danger'
+        }
       }
+
+
     },
+
     sendForm() {
 
       const fromPersonalRef = JSON.parse(JSON.stringify(this.$refs.personal.temporaryForm))
@@ -234,7 +216,6 @@ export default {
       this.setForm({value: fromMembershipRef});
 
       this.closeModal();
-      // this.$router.push('/form/membership');
     },
   }
 }

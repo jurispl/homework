@@ -18,10 +18,6 @@
 
           <div class="stepper-content-footer">
             <div class="to-column">
-              <router-link to="membership">membership</router-link>
-              <br>
-              <router-link to="/">Go HOME</router-link>
-              <br>
               <button type="button" @click="sendForm" class="btn primary s-lg">Continue</button>
             </div>
           </div>

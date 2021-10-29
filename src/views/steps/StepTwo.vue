@@ -8,7 +8,7 @@
       </label>
     </div>
     <div class="field-check">
-      <input v-model="field.membership.value"  value="premium" class="field-check-input" type="radio" name="membership"
+      <input v-model="field.membership.value" value="premium" class="field-check-input" type="radio" name="membership"
              id="Membership-premium">
       <label class="field-check-label" for="Membership-premium">
         Premium
@@ -35,24 +35,12 @@
 </template>
 
 <script>
+import formFieldMixin from '@/mixin/formFieldMixin'
 
 export default {
   name: "StepTwo",
+  mixins: [formFieldMixin],
   expose: ['temporaryForm'],
-  props: {
-    getGroupFields: {
-      type: Object
-    },
-  },
-  computed: {
-    field() {
-      const fields = {};
-      this.temporaryForm.fields.forEach(field => {
-        fields[field.id] = field;
-      });
-      return fields;
-    },
-  },
   data() {
     return {
       temporaryForm: {
@@ -67,16 +55,6 @@ export default {
           },
         ],
       },
-    }
-  },
-  methods: {
-    updateField(id, value) {
-      this.field[id].value = value;
-    },
-  },
-  created() {
-    if (Object.keys(this.getGroupFields).length) {
-      this.temporaryForm = {...this.getGroupFields}
     }
   },
 }

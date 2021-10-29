@@ -74,25 +74,13 @@
 
 <script>
 import PhoneList from "@/views/steps/PhoneList";
+import formFieldMixin from '@/mixin/formFieldMixin'
 
 export default {
   name: "StepOne",
+  mixins: [formFieldMixin],
   expose: ['temporaryForm'],
-  props: {
-    getGroupFields: {
-      type: Object
-    },
-  },
   components: {PhoneList},
-  computed: {
-    field() {
-      const fields = {};
-      this.temporaryForm.fields.forEach(field => {
-        fields[field.id] = field;
-      });
-      return fields;
-    },
-  },
   data() {
     return {
       temporaryForm: {
@@ -174,19 +162,7 @@ export default {
     updateNews(item, e) {
       this.field['skills'].fields[item].value = e;
     },
-
-    updateField(id, value) {
-      this.field[id].value = value;
-    },
   },
-  created() {
-    if (Object.keys(this.getGroupFields).length) {
-      this.temporaryForm = {...this.getGroupFields}
-    }
-  },
-  unmounted() {
-    // this.temporaryForm = {};
-  }
 }
 </script>
 

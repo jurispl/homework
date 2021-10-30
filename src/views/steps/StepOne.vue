@@ -2,40 +2,41 @@
   <div class="to-column">
     <div class="form-field">
       <label
-          for="First-name"
+          :for="field.firstName.id"
           class="form-label"
-      >First name</label>
+      >{{ field.firstName.label }}</label>
       <input
           :value="field.firstName.value"
           @input="updateField('firstName', $event.target.value)"
-          id="First-name"
+          :id="field.firstName.id"
           type="text"
+          :required="field.firstName.required"
           class="form-control"
       >
     </div>
 
     <div class="form-field">
       <label
-          for="Last-name"
+          :for="field.lastName.id"
           class="form-label"
-      >Last name</label>
+      >{{ field.lastName.label }}</label>
       <input
           :value="field.lastName.value"
           @input="updateField('lastName', $event.target.value)"
-          id="Last-name"
+          :id="field.lastName.id"
           type="text"
           class="form-control">
     </div>
 
     <div class="form-field">
       <label
-          for="E-mail"
+          :for="field.email.id"
           class="form-label"
-      >E-mail</label>
+      >{{ field.email.label }}</label>
       <input
           :value="field.email.value"
           @input="updateField('email', $event.target.value)"
-          id="E-mail"
+          :id="field.email.id"
           type="text"
           class="form-control">
     </div>
@@ -92,14 +93,29 @@ export default {
           {
             id: 'firstName',
             value: null,
+            type: 'text',
+            required: false,
+            label: 'First Name',
+            placeholder: null,
+            fullLabel: 'Work Phone',
           },
           {
             id: 'lastName',
             value: null,
+            type: 'text',
+            required: false,
+            label: 'Last Name',
+            placeholder: null,
+            fullLabel: 'Work Phone',
           },
           {
             id: 'email',
             value: null,
+            type: 'text',
+            required: false,
+            label: 'Email',
+            placeholder: null,
+            fullLabel: 'Work Phone',
           },
           {
             id: 'skills',
@@ -121,7 +137,7 @@ export default {
                 label: 'Home',
                 fullLabel: 'Home Phone',
                 value: null,
-                isSelected: true,
+                isSelected: false,
                 sortNumber: 2,
               },
               {

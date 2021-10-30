@@ -63,7 +63,6 @@ import AppFormFieldGroup from "@/components/AppFormFieldGroup";
 
 export default {
   name: "PhoneList",
-  inject: ['formData'],
   props: {
     phones: {
       type: Array

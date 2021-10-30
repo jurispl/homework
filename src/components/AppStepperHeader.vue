@@ -1,22 +1,23 @@
 <template>
 
 
+  <div
+      class="step-header"
+      v-for="({title, id}, index) in steps"
+      :key="id"
+  >
     <div
-        class="step-header"
-        v-for="({title, id}, index) in steps"
-        :key="id"
-    >
-      <div
-          class="step-horizontal-line"
-          :class="getStatus(index)"
-          v-if="index !== 0"
-      ></div>
-      <app-stepper-step
-          :title="title"
-          :status="getStatus(index)"
-          :id="index+1"
-      ></app-stepper-step>
-    </div>
+        class="step-horizontal-line"
+        :class="getStatus(index)"
+        v-if="index !== 0"
+    ></div>
+
+    <app-stepper-step
+        :title="title"
+        :status="getStatus(index)"
+        :id="index+1"
+    ></app-stepper-step>
+  </div>
 
 
 </template>

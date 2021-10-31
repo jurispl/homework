@@ -51,7 +51,7 @@ export default {
         fields: [
           {
             id: 'membership',
-            value: 'premium',
+            value: 'regular',
           },
         ],
       },

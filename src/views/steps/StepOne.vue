@@ -1,10 +1,13 @@
 <template>
   <div class="to-column">
-    <div class="form-field">
+    <div
+        class="form-field"
+        :class="field.firstName.classState"
+    >
       <label
           :for="field.firstName.id"
           class="form-label"
-      >{{ field.firstName.label }}</label>
+      >{{ field.firstName.label }}<span class="required">*</span></label>
       <input
           :value="field.firstName.value"
           @input="updateField('firstName', $event.target.value)"
@@ -13,6 +16,9 @@
           :required="field.firstName.required"
           class="form-control"
       >
+      <div class="invalid-msg">
+        Please required First Name.
+      </div>
     </div>
 
     <div class="form-field">
@@ -98,9 +104,10 @@ export default {
             id: 'firstName',
             value: null,
             type: 'text',
-            required: false,
+            required: true,
             label: 'First Name',
             placeholder: null,
+            classState: '',
             fullLabel: 'Work Phone',
           },
           {
@@ -182,9 +189,9 @@ export default {
     updateSkill(item, e) {
       this.field['skills'].fields[item].value = e;
     },
-    deleteSkill(index){
+    deleteSkill(index) {
       this.field['skills'].fields.splice(index, 1)
-    }
+    },
   },
 }
 </script>

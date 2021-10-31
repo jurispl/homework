@@ -18,5 +18,17 @@ export default {
                 return {};
             }
         },
+        formValidation(refGroup) {
+            let isValid = true;
+            refGroup.fields.forEach(field => {
+                if (field.required && (field.value === null || field.value.length === 0)) {
+                    field.classState = 'error';
+                    isValid = false;
+                } else if (field.required) {
+                    field.classState = '';
+                }
+            });
+            return isValid;
+        },
     },
 }

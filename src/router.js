@@ -15,17 +15,17 @@ const router = createRouter({
         {
             path: '/form', component: Form, name: 'form', redirect: '/form/personal', children: [
                 {
-                    path: 'personal', component: FormPersonalInfo, meta: {
+                    path: 'personal', name: 'personal', component: FormPersonalInfo, meta: {
                         activeStep: 0,
                     }
                 },
                 {
-                    path: 'membership', component: FormMembership, meta: {
+                    path: 'membership', name: 'membership', component: FormMembership, meta: {
                         activeStep: 1,
                     }
                 },
                 {
-                    path: 'overview', component: FormOverview, meta: {
+                    path: 'overview', name: 'overview', component: FormOverview, meta: {
                         activeStep: 2,
                     }
                 },
@@ -34,4 +34,14 @@ const router = createRouter({
     ],
 });
 
+// router.beforeEach((to, from, next) => {
+//     console.log('beforeEach pageAccessGuard');
+//     if (to.meta.pageAccessGuard) {
+//         next({
+//             name: 'personal'
+//         });
+//     } else {
+//         next()
+//     }
+// });
 export default router;

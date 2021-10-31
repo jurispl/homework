@@ -88,6 +88,7 @@
       <div class="to-column">
         <button @click="$router.push('/form/membership')" type="button" class="btn outline s-lg">Back</button>
         <button @click="postForm(field)" type="button" class="btn primary s-lg">Submit</button>
+        <span class="todo-small">Random error request</span>
       </div>
     </div>
   </div>
@@ -120,7 +121,6 @@ export default {
           field[elm.id] = elm;
         })
       })
-
       return field;
     }
   },
@@ -143,6 +143,7 @@ export default {
     async postForm(body) {
       try {
         // TEST Random error request!
+        // TODO TEST Random error request
         const artifact = Math.random() >= 0.5 ? 'ERR' : '';
         const url = `https://${artifact}vue-jp-http-default-rtdb.europe-west1.firebasedatabase.app/users.json`;
 
@@ -191,14 +192,18 @@ export default {
     },
 
     sendForm() {
+      const refPersonal = this.$refs.personal.temporaryForm;
+      const refMembership = this.$refs.membership.temporaryForm;
 
-      const fromPersonalRef = JSON.parse(JSON.stringify(this.$refs.personal.temporaryForm))
-      this.setForm({value: fromPersonalRef});
+      if (this.formValidation(refPersonal)) {
+        const fromPersonalRef = JSON.parse(JSON.stringify(refPersonal))
+        this.setForm({value: fromPersonalRef});
 
-      const fromMembershipRef = JSON.parse(JSON.stringify(this.$refs.membership.temporaryForm))
-      this.setForm({value: fromMembershipRef});
+        const fromMembershipRef = JSON.parse(JSON.stringify(refMembership))
+        this.setForm({value: fromMembershipRef});
 
-      this.closeModal();
+        this.closeModal();
+      }
     },
   }
 }

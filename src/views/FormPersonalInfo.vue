@@ -35,19 +35,20 @@ export default {
   methods: {
     ...mapMutations('user', ['setForm']),
     sendForm() {
-      // this.$refs.personal.temporaryForm
-      const fromRef = JSON.parse(JSON.stringify(this.$refs.personal.temporaryForm))
-      // const form = document.getElementById('bob');
-      // const formData = new FormData(form);
-      //
-      // for (let [name, value] of formData.entries()) {
-      //   console.log('form Data --', name, value);
-      // }
+      const refPersonal = this.$refs.personal.temporaryForm;
+      if (this.formValidation(refPersonal)) {
+        // this.$refs.personal.temporaryForm
+        const fromRef = JSON.parse(JSON.stringify(refPersonal));
+        // const form = document.getElementById('bob');
+        // const formData = new FormData(form);
+        //
+        // for (let [name, value] of formData.entries()) {
+        //   console.log('form Data --', name, value);
+        // }
 
-      this.setForm({value: fromRef});
-
-
-      this.$router.push('/form/membership');
+        this.setForm({value: fromRef});
+        this.$router.push('/form/membership');
+      }
     },
   },
 }

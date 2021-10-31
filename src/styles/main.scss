@@ -160,6 +160,11 @@ $step-icon-state-number-size: 52px;
 
   label {
     display: inline-block;
+    span{
+      &.required{
+        color: #EF5350;
+      }
+    }
   }
 
   .field-action {
@@ -173,6 +178,22 @@ $step-icon-state-number-size: 52px;
 
     &:hover {
       box-shadow: none;
+    }
+  }
+
+  .invalid-msg {
+    position: absolute;
+    font-size: 14px;
+    color: #EF5350;
+    display: none;
+  }
+
+  &.error {
+    .form-control{
+      border-color: #EF5350;
+    }
+    .invalid-msg {
+      display: block;
     }
   }
 }
@@ -199,6 +220,7 @@ $step-icon-state-number-size: 52px;
   appearance: none;
   border-radius: 8px;
 }
+
 
 .form-field-group {
   position: relative;
@@ -532,10 +554,18 @@ $step-icon-state-number-size: 52px;
 .to-column {
   display: flex;
   flex-direction: column;
+  position: relative;
 
   > .btn {
     margin-bottom: 10px;
   }
+}
+
+.todo-small {
+  position: absolute;
+  bottom: -17px;
+  font-size: 14px;
+  color: #EF5350;
 }
 
 
@@ -621,7 +651,7 @@ $step-icon-state-number-size: 52px;
   z-index: 1050;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(227, 242, 253, 0.96);
+  background-color: rgb(34 53 70 / 67%);
   display: block;
 }
 
@@ -629,7 +659,7 @@ $step-icon-state-number-size: 52px;
   .backdrop {
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
-    background-color: rgb(187 217 245 / 27%);
+    background-color: rgb(34 53 70 / 67%);
   }
 }
 

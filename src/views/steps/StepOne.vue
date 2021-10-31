@@ -50,16 +50,17 @@
           :for="item.label + index"
           class="form-label"
       >Skill</label>
-      <input :value="item.value" @input="updateNews(index, $event.target.value)"
+      <input :value="item.value" @input="updateSkill(index, $event.target.value)"
              :id="index"
              :name="index"
              type="text"
              class="form-control">
+      <button @click="deleteSkill(index)" type="button" class="fab-menu-btn -red field-action">-</button>
     </div>
 
     <div class="button-group">
       <button
-          @click="newItem()"
+          @click="addSkill()"
           type="button"
           class="btn link"
       >+ Add skill
@@ -172,12 +173,15 @@ export default {
   },
   methods: {
     // Dynamic adding field
-    newItem() {
+    addSkill() {
       this.field['skills'].fields.push({label: `Skill`, value: ''})
     },
-    updateNews(item, e) {
+    updateSkill(item, e) {
       this.field['skills'].fields[item].value = e;
     },
+    deleteSkill(index){
+      this.field['skills'].fields.splice(index, 1)
+    }
   },
 }
 </script>

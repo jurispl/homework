@@ -44,7 +44,7 @@
     <div
         class="form-field"
         v-for="(item, index) in field.skills.fields"
-        :key="index"
+        :key="item"
     >
       <label
           :for="item.label + index"
@@ -55,7 +55,9 @@
              :name="index"
              type="text"
              class="form-control">
-      <button @click="deleteSkill(index)" type="button" class="fab-menu-btn -red field-action">-</button>
+      <button @click="deleteSkill(index)" type="button" class="fab-menu-btn field-action">
+        <app-icon-trash></app-icon-trash>
+      </button>
     </div>
 
     <div class="button-group">
@@ -77,12 +79,13 @@
 <script>
 import PhoneList from "@/views/steps/PhoneList";
 import formFieldMixin from '@/mixin/formFieldMixin'
+import AppIconTrash from "@/components/icons/AppIconTrash";
 
 export default {
   name: "StepOne",
   mixins: [formFieldMixin],
   expose: ['temporaryForm'],
-  components: {PhoneList},
+  components: {AppIconTrash, PhoneList},
   data() {
     return {
       temporaryForm: {

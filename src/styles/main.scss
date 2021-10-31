@@ -164,10 +164,16 @@ $step-icon-state-number-size: 52px;
 
   .field-action {
     position: absolute;
-    right: 0;
-    top: 0;
+    right: 7px;
+    top: 38px;
     width: 30px;
     height: 30px;
+    color: #66788d;
+    box-shadow: none;
+
+    &:hover {
+      box-shadow: none;
+    }
   }
 }
 
@@ -428,6 +434,11 @@ $step-icon-state-number-size: 52px;
     &:hover {
       background-color: #4CAF50;
     }
+  }
+
+  svg {
+    width: 30px;
+    height: 25px;
   }
 }
 

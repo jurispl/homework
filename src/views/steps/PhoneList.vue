@@ -38,6 +38,9 @@
           v-model="phone.value"
           type="text"
           class="form-control">
+      <button @click="deletePhone(phone)" type="button" class="fab-menu-btn field-action">
+        <app-icon-trash></app-icon-trash>
+      </button>
     </template>
   </app-form-field-group>
 
@@ -60,6 +63,7 @@ import AppDropdown from "@/components/AppDropdown";
 import AppDropdownMenu from "@/components/AppDropdownMenu";
 import AppDropdownItem from "@/components/AppDropdownItem";
 import AppFormFieldGroup from "@/components/AppFormFieldGroup";
+import AppIconTrash from "@/components/icons/AppIconTrash";
 
 export default {
   name: "PhoneList",
@@ -68,7 +72,7 @@ export default {
       type: Array
     }
   },
-  components: {AppFormFieldGroup, AppDropdownItem, AppDropdownMenu, AppDropdown},
+  components: {AppIconTrash, AppFormFieldGroup, AppDropdownItem, AppDropdownMenu, AppDropdown},
   computed: {
     canAddPhone() {
       return !!(this.phones.find(i => !i.isSelected));
@@ -77,7 +81,7 @@ export default {
       return this.phones.filter(i => i.isSelected === true).sort((a, b) => {
         return a.sortNumber - b.sortNumber
       });
-    }
+    },
   },
   methods: {
     choicePhoneType(selectedPhone, currentPhone) {
@@ -90,7 +94,19 @@ export default {
       currentPhone.isSelected = false;
     },
     addNewPhone() {
-      this.phones.find(i => !i.isSelected).isSelected = true
+      const phone = this.phones.find(i => !i.isSelected);
+      phone.sortNumber = this.selectedListPhones.length + 1;
+      phone.isSelected = true;
+    },
+    deletePhone(phone) {
+      phone.value = '';
+      phone.isSelected = false;
+      this.changeSortNumber();
+    },
+    changeSortNumber() {
+      this.selectedListPhones.forEach((item, index) => {
+        item.sortNumber = index + 1
+      });
     },
   },
 }

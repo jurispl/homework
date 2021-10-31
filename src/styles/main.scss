@@ -206,6 +206,10 @@ $step-icon-state-number-size: 52px;
   flex-wrap: wrap;
   align-items: center;
   width: 100%;
+
+  .field-action {
+    top: 7px;
+  }
 }
 
 .form-field-group > .form-control {

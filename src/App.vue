@@ -3,9 +3,14 @@
     <router-view></router-view>
   </div>
 
+  <app-fab-menu></app-fab-menu>
 </template>
 <script>
-export default {}
+import AppFabMenu from "@/components/AppFabMenu";
+
+export default {
+  components: {AppFabMenu}
+}
 </script>
 <style lang="scss">
 </style>
